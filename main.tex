@@ -1,0 +1,149 @@
+%Carattere dimensione 12
+\documentclass[12pt]{report}
+
+%Margini e interlinea
+\usepackage[top=2.5cm, bottom=2.5cm, left=4cm, right=2.5cm, centering]{geometry}
+\linespread{1.5}
+
+%Librerie utili
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{scrlayer-scrpage}
+\ifoot[]{}
+\cfoot[]{}
+\ofoot[\pagemark]{\pagemark}
+\pagestyle{scrplain}
+\usepackage{mathptmx} % font times new roman (simile)
+\usepackage{graphicx}
+\usepackage{titlesec} % per la formattazione dei titoli delle sezioni, capitoli etc.
+\usepackage{float} % per il posizionamento di immagini
+\usepackage{titlesec} % per i titoli
+\usepackage{listings} % per il codice di programmazione
+\renewcommand{\lstlistingname}{Code}% Listing -> Codice
+\usepackage{xcolor}  % stile del codice
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{navy}{HTML}{000080}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Customize a bit the look
+\lstset{ %
+belowcaptionskip=0.5em,
+backgroundcolor=\color{backcolour}, % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+basicstyle=\footnotesize, % the size of the fonts that are used for the code
+breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+breaklines=true, % sets automatic line breaking
+captionpos=b, % sets the caption-position to bottom
+commentstyle=\color{mygreen}, % comment style
+deletekeywords={...}, % if you want to delete keywords from the given language
+escapeinside={\%*}{*)}, % if you want to add LaTeX within your code
+extendedchars=true, % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+frame=single, % adds a frame around the code
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{codepurple}, % keyword style
+% language=Octave, % the language of the code
+morekeywords={*,...}, % if you want to add more keywords to the set
+numbers=left, % where to put the line-numbers; possible values are (none, left, right)
+numbersep=5pt, % how far the line-numbers are from the code
+numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+rulecolor=\color{black}, % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false, % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false, % underline spaces within strings only
+showtabs=false, % show tabs within strings adding particular underscores
+stepnumber=1, % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{mymauve}, % string literal style
+tabsize=2, % sets default tabsize to 2 spaces
+title=\lstname % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+%END of listing package%
+ 
+%define Javascript language
+\lstdefinelanguage{JavaScript}{
+keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, uint256, address, uint, string, bool, let, const},
+keywordstyle=\color{blue}\bfseries,
+ndkeywords={class, export, extends, define, super, boolean, throw, implements, import, this, constructor, pragma, contract, modifier, struct, mapping},
+ndkeywordstyle=\color{navy}\bfseries,
+identifierstyle=\color{black},
+sensitive=false,
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{mygreen}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+morestring=[b]',
+morestring=[b]"
+}
+ 
+\lstset{
+language=JavaScript,
+extendedchars=true,
+basicstyle=\footnotesize\ttfamily,
+showstringspaces=false,
+showspaces=false,
+numbers=left,
+numberstyle=\footnotesize,
+numbersep=9pt,
+tabsize=2,
+breaklines=true,
+showtabs=false,
+captionpos=b
+}
+
+\titleformat{\chapter}[block]
+  {\normalfont\LARGE\bfseries}{\thechapter.}{0.5em}{\LARGE}
+\titlespacing*{\chapter}{0pt}{-20pt}{25pt}
+
+\usepackage{csquotes}
+\usepackage[backend=biber, sorting=nty]{biblatex}
+\appto{\bibsetup}{\raggedright}
+\addbibresource{bibliography.bib}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{figure}
+    \centering\includegraphics{logo}
+\end{figure}
+
+\begin{center}
+    {\LARGE{ Corso di Laurea in Informatica Umanistica }}\\
+    \vspace{2cm}
+    {\Large { Dissertation }}\\
+    \vspace{2cm}
+    {\Large { Remix culture in Digital Humanities:
+ \\ Development of a component based online video-editing platform }}
+\end{center}
+
+\vspace{2cm}
+
+\begin{minipage}[t]{0.47\textwidth}
+	{\large{\bf Relatore:\\ Dott.ssa Maria Simi\\}}
+	{\large{\bf \\Correlatori:\\ Dott. Vincenzo Gervasi}}
+\end{minipage}\hfill\begin{minipage}[t]{0.47\textwidth}\raggedleft
+	{\large{\bf Presentata da: \\ Lukasz Szczygiel\\ }}
+\end{minipage}
+
+\vspace{18mm}
+
+\centering{\large{\bf Sessione estiva\\ Anno Accademico 2019/2020 }}
+\end{titlepage}
+
+\tableofcontents
+
+\listoffigures
+
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\include{ch1_RemixCulture}
+\include{ch2_ProjectManagement}
+\include{ch3_ProjectDevelopment}
+\chapter*{Conclusions}
+\addcontentsline{toc}{chapter}{Conclusions}
+
+\printbibliography
+
+\end{document}
