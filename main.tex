@@ -136,13 +136,29 @@ captionpos=b
 
 \listoffigures
 
-\chapter*{Introduction}
+\thispagestyle{empty}
+\clearpage
+\setcounter{page}{1}
+
 \addcontentsline{toc}{chapter}{Introduction}
-\include{ch1_RemixCulture}
-\include{ch2_ProjectManagement}
-\include{ch3_ProjectDevelopment}
-\chapter*{Conclusions}
+\input{introduction.tex}
+
+\clearpage
+
+\input{ch1_RemixCulture.tex}
+
+\clearpage
+
+\input{ch2_ProjectManagement.tex}
+
+\clearpage
+
+\input{ch3_ProjectDevelopment.tex}
+
+\clearpage
+
 \addcontentsline{toc}{chapter}{Conclusions}
+\input{conclusions.tex}
 
 \printbibliography
 
