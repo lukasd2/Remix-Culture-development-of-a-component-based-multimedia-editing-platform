@@ -134,13 +134,14 @@ captionpos=b
 \end{titlepage}
 
 \tableofcontents
+\thispagestyle{empty}
 
 \listoffigures
 
 \thispagestyle{empty}
 \clearpage
 \setcounter{page}{1}
-
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \addcontentsline{toc}{chapter}{Introduction}
 \input{introduction.tex}
 
