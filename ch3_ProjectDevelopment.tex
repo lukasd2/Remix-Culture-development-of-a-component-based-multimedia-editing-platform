@@ -3,37 +3,271 @@
 
 % --- Chapter 3 start ---
 
-To be continued.\footfullcite{CleanCode}\footfullcite{EloquentJavascript}.
+This chapter is meant to illustrate the main thesis about the Remix Culture by combining most of the topics presented in the previous parts into a practical example of project development. The project consists in developing a web application for multimedia editing that can run in every modern browser. Hence, from a general point of view this can be seen as an implementation of a set of features that are common in many offline and online tools for video editing, as analysed in section \ref{sec:stateOfArt} \emph{State of the art: online video-editing tools}. In more detail, the application main value proposition is to offer the possibility of “remixing” different types of multimedia content, in particular videos, images, and sound media. Thanks to this universally accessible and open source technical solution the Remix Culture can come to life and can be experienced by anyone with an internet connection.
+
+More details about the requirements, technical decisions and considerations can be found in the paragraph \ref{sec:SoftwareArchitecture} \emph{Software Architecture}. At this point, the main argument is addressed from the perspective of software development. Specifically, the results presented in this this chapter follow a two-pronged objective.
+
+Firstly, the development of an application for “remixing” multimedia enables users to experience the concepts of the aforementioned Remix Culture by enhancing content discoverability and stimulating user’s creativity. On the other side, content holders, i.e., authors, institutions, etc. can gain in recognition, thus receive added value from this kind of application. Therefore, this can be seen as an attempt to promote the Remix Culture among institutions which may be encouraged by the benefits and decide to upload content on the platform. A particularly suitable target might consist of cultural heritage organisations with their frequent digitalization programmes. These institutions’ digitization strategies often set their priority goals for enhancing user engagement and participation.
+
+A second objective comes from the choices made for the technical architecture. The video editing tool is open for modifications in terms of software development. By publishing and applying the “MIT” license\footfullcite{mitLicense} to the source code, a contribution to the open-source world is made. Furthermore, by adopting a component driven development with a solution based on Web Components technology – a standard and framework agnostic solution as explained in paragraph \ref{sec:webComponents} \emph{Web Components} – the technical solutions are offered to the community as a library from which to choose from, expand upon, and create brand new projects.
+
+In the next paragraph, \ref{sec:reuseAndMaintainability} \emph{Reusability and maintainability, through abstractions to a component-based approach}, an analysis of the modern software development is presented together with arguments in favour and against the adoption of a component-based approach.
+
+Finally, at the end of this chapter, two examples of application instances will be made: the first example was developed in the context of the “PH-Remix” project. In this case, as mentioned in the introduction, the content belongs to the “Mediateca Toscana”\footfullcite{mediateca} and the development was guided by the requirements expressed in the regional project grant. The project involves several researchers, and the development is still in progress as the project deadline is set to 2022. Therefore, a front-end component (or set of components) was implemented, in anticipation of the back end architecture, while work on the latter is still in progress at the time of writing.
+The second application integrates a variety of open source materials. It is an example of reusability of the components architecture that can be used for different purposes. The implementation is based on the public Pexels API\footfullcite{pexels} which offers a large number of videos and images. All the content can be used thanks to a permissive license. This solution acts as an aggregator of open source licensed materials to create new general purpose productions. It is not connected to any specific target audience. An example could be the discovery of content to be used as commercial advertisement for any kind of industrial product.
 
 \section{Reusability and maintainability, through abstractions to a component-based approach}
+\label{sec:reuseAndMaintainability}
 
-To be continued.
+Modern software development techniques and tendencies are mainly concerned with the objective of simplifying the development of technical solutions, as well as easing up code reusability and maintainability.
+
+Nowadays, programming – the activity of writing a code – involves the use of a growing number of abstractions as a way of responding to the challenges deriving from the complexity of modern software applications. R.C. Martin in the introduction of Clean Code\footfullcite{CleanCode} affirms that:
+
+\begin{displayquote}
+
+“[…] the level of abstraction of our languages will continue to increase. I also expect that the number of domain-specific languages will continue to grow. This will be a good thing. But it will not eliminate code […]”. 
+
+\end{displayquote}
+
+As the author confutes the “no-code development approach”, he also states that the code will be evolving as an expression of the software specifications. These specifications or requirements need to be translated into a form that is understandable and executable by a machine. Hence, the concept of abstractions will be analysed as one of the guiding principles of software evolution.
+
+Focus will be put on the front-end development ecosystem, as it reflects the majority of work done for this dissertation practical application. Despite this choice, most of the arguments presented apply to the software world in general. The final aim of this paragraph is to provide the rationale behind the choice of Web Components as the technology for project development. As a matter of fact, before introducing Web Components, to fully understand the component-based approach, an introspection into the web development stack ought to be made.
+
+The front-end development is commonly considered as a fast-paced environment among developers\footnote{It is worth noting how this statement can be sustained by real world data. Stack Overflow makes yearly surveys among its community of developers. The Stack Overflow Annual Developer Survey (https://insights.stackoverflow.com/survey/) contains a section called “trending techs” where the rise and decrease in popularity of web development technologies over the years can be analysed in further detail}. In short, the lifecycle of the technologies used for the web application layer is shorter compared to the rest of the software world. Consequently, programmers usually need to make a significant effort in order to stay up-to-date on the recent technological progress. In other words, front-end frameworks and libraries tend to become less maintained, and thus deprecated in a short span of time.
+
+Although the fundamental programming skills required for creating web applications – ranging from simple static websites to complex online platforms – are still based on HTML, CSS, and JavaScript, several solutions were created for more efficient and effective way of reaching programming goals. A relevant example of this evolution is provided by JavaScript frameworks and libraries. It is worth emphasizing that JavaScript started off as a scripting language, generally used for small tasks like adding interactivity to the web pages. As of today, it has become a mature and widely used language both on the front-end and the back-end side (mainly thanks to the development of V8 JavaScript engine used for runtimes environments of Node.js, Deno etc.).
+
+On the front-end side, the progress might be viewed as a development of proprietary and open source systems that implement features with the goal of easing up and speeding up the development of web projects. Starting from the jQuery library in 2006, which offered a cross-browser compatible set of features with an API that simplified the most frequent actions like DOM traversal, event handling etc., to the first frameworks (Backbone, Ember, Angular just to name a few) with more sophisticated features like data binding, dependency injection, routing and many more. Another popular, more recent example is the React library.
+
+One of the core innovations of the React library is its design principle of “composition of components”. This principle consists in building “encapsulated components that manage their own state, then compose them to make complex UIs”\footfullcite{reactDesignPrinciple1}. This innovation, as seen in React, reflects the tendency of many other modern front-end frameworks, such as: Vue, Angular, Svelte, etc. They are based on the idea of splitting codebases into small reusable pieces of code, called components. This approach is particularly useful for medium and large software projects as it enables modularization, by splitting software logic into separate modules, thereby encouraging reusability and maintainability. Another benefit of this approach is that the development process can also be better organised between multiple teams working on different features. 
+
+As more and more solutions were introduced into the web development ecosystem, a phenomenon commonly called “proliferation of frameworks”\footfullcite{proliferationFrameworks} became an issue. An issue that might have consequences beyond the vastity of the offer to choose from.
+An immediate consequence of using frameworks is the framework-specific way of developing code or components. The developers are required to learn a new framework and dedicate to it in order to gain the benefits that are being offered by those solutions. A flaw of this approach logically follows as the development becomes limited to the specific framework or technology. It seems that more arguments on the downside of using frameworks can be made. The possible common issues involve their lifespan and changes due to new releases that may lead to issues with compatibility between the old and the new versions. Also, the size of the framework codebase, i.e., the functions installed and required by default – often not necessary in every project – can slow down the application performances.
+For some projects this might be a viable solution, as for companies currently developing solutions that might benefit from specific features and differences offered by frameworks or for those who can avail of having an internal expertise to justify the usage of a specific framework.
+
+Many of these new features offered by the above tools are connected to the standardization process itself. It seems that the creation of new solutions that gain popularity within the community stimulate the implementation of these features into web standards. Notably, in this context, W3C recommendations standards\footfullcite{w3c} and JavaScript ECMAScript specification \footfullcite{ecma}.Arguments in favour of this thesis can be made. For example, the standard Selectors API specification\footfullcite{w3cSelectors}, offering “querySelector” “querySelectorAll” interfaces for finding elements inside the DOM tree structure, was inspired by the jQuery selectors helper methods\footfullcite{jQuerySelector}. From the perspective of frameworks or libraries adopters the benefits of adopting the libraries over the native standard – which is faster – are inversely proportional to the number of features that exist in the standard. Although nothing prevents developers from adopting jQuery and similar solutions, their adoption may make less and less sense leading to their natural decline.
+
+This prompts the question, if the component approach seems to be a shared direction for developing more complex front-end systems, how to tackle the issues regarding supposedly one of the main features of components, namely the benefit of writing a reusable code while being locked-in into specific technology stacks?
+
+A possible answer might be in the Web Components technology which enforces the property of reuse among applications. In short, having a standardized way of building components would mean greater reusability, configurability, and consistency – avoiding technical lock-ins – for many years to come. As a general rule of thumb, Web Standards, made by W3C and similar, are more reliable than the proprietary Long Time Support (“LTS”) solutions. Web components are a set of Web APIs that allow to create custom, reusable HTML elements with logic and styling encapsulated into their definition. They can tackle the problems of developing interoperable components. By inserting the components within the frameworks, they are expected to work in a plug and play manner thanks to the native APIs compatibility\footfullcite{customElementsEverywhere}.
+
+Nevertheless, Web Components are not to be considered a silver bullet for solving issues presented in this section. Currently, it appears that some problems could also be mitigated by adopting a set of techniques and strategies such as “Micro-Frontends”\footfullcite{microFrontends}. The latter combined with “Webpack Module Federation” seems a particularly promising solution. A detailed analysis is beyond the scope of this dissertation. However, for a better perspective of the current state of art, the idea of Micro-Frontends could be summarized as the application of microservices architecture to the front-end world. As it happens with the back-end, the aim is to decouple the single pieces of an application in a way that they can be developed independently and using different technologies. From a business point of view, this would make sense in large projects and is a promising approach to Agile methodology as small teams could work on developing autonomous features. The key difference between the Web Components approach and the Micro-Frontends is that the development of interoperable components can be done by using different frameworks. A quick example could be a coherent application composed by components made with the Vue, React and Svelte frameworks. Certainly, this leads to complexities. Therefore, the Webpack Module Federation was introduced. This Webpack feature allows a JavaScript application to dynamically load code from another application without compromising security\footfullcite{webpack5}.
+
+In this panorama, the Web Components technology seems like an additional asset to the current way of developing front-end projects. Its aim does not involve replacing the actual front-end frameworks, it should rather be considered as one of the possible ways for adopting a component-based approach on the web. 
+
+Returning to the “PH-Remix” case study, the Web Components were adopted as a front-end technology in line with the project architecture. As a matter of fact, the project architecture is based on a microservice model that allows for a degree of flexibility and enables a parallel development of the back-end infrastructure. Also, from the project development point of view, relying on the standard allows for future developers to modify and enrich the code more easily. Consequently, the necessity of learning new frameworks is absent. This suggests that the features that Web Components offer could solve some of these problems. Indeed, the main promise of making a flexible architecture seemed to be easily solved thanks to this front-end technology of choice. In the next paragraph the main standard’s features will be introduced. 
 
 \section{Web Components}
+\label{sec:webComponents}
 
-To be continued.
+To reiterate the definition from the last paragraph, Web components are a set of Web APIs that allow to create custom, reusable HTML elements with logic and styling encapsulated into their definition. From a practical point of view, modern browsers can compute Web Components in the form of custom HTML tags that, in turn, can be used and re-used across multiple projects and technology stacks. The described behaviour is equivalent to the one of standard HTML elements as defined in the HTML documentation.
+
+Web Components offer a native platform and a technology agnostic component model for developing a code that runs in browsers. As a matter of fact, this follows the tendency of many modern front-end frameworks, which are based on the idea of splitting codebases into components, as mentioned in this chapter’s introduction. The main difference is the interoperability provided by adopting the solution introduced in this chapter.
+
+Web Components technology can be considered as an umbrella term that encompasses three distinct Web APIs: Custom Elements, Shadow DOM, and HTML Templates. By defining and referring to Web Components as a native technology, the standardization by W3C is intended. The specifications for each of these Web APIs are now incorporated as a living standard\footfullcite{w3cEvergreenStandards}. Each of these specifications will be explored with more detail in the next sections to explain their features and the current limits of this technology. The purpose of these explanations is to provide some basic knowledge about the internal mechanisms and a few points of interest relevant to the subject that might be of interest for readers.
+
+The formal documentations and technical definitions hardly give the developer’s perspective and community feelings about this topic. Therefore, another aspect worth investigating regards the evolution and the adoption of Web Components.
+
+The proposal of Web Components is not new, speaking in terms of software development dynamics. Firstly introduced in 2011 by Alex Russell\footfullcite{webComponentsBeginning}, it went through years of standardization process. The latter might be also viewed as search for consensus between browsers producers, namely the owners of: Safari, Firefox, Chrome – therefore, all the Chromium based browsers – and Microsoft browsers. While the Microsoft browsers consist of Internet Explorer and Microsoft Edge, the former has reached the end of its lifecycle maintaining only the technical support and security updates for its latest version (Internet Explorer 11). The browser does not support the Web Components standard\footfullcite{canIUseComponents}, therefore its implementation and usage require the adoption of polyfills and transpilers.
+Generally, transpilers are used to compile the source code written in one language to another. Although in this case their main usage is to transform the code written using some – usually recent – standard into a backward compatible code that can work with the old browsers not supporting that standard. One example of the most popular transpiler is Babel\footfullcite{babel}, which allows developers to use the most recent JavaScript features among all the browsers by translating them into a code compliant with the old language standards.
+
+
+Returning to the issues of browser compatibility, the deprecation of Internet Explorer and the subsequent evolution of its successor, Microsoft Edge, gave Web Components a boost in terms of compatibility. The main reason can be linked back to the Microsoft Edge passage to the Chromium open source project on 8th April 2019\footfullcite{microsoftEdge}. This fundamental change consisted in a passage from the combination of EdgeHTML browser engine and Chakra JavaScript engine to Blink and V8, respectively a browser engine and a JavaScript engine.
+
+This led to a substantial improvement and larger adoption by the community. However, this overview draws attention to the standardization process. As seen, almost ten years were necessary until one of the last major browsers adopted the initial proposal. In the meantime, the standard itself came through a long process of maturation and stabilisation\footnote{An interesting lecture by Jan Miksovsky on how the standardization of HTML slot element may give a better view on the complexities of standardization process: https://component.kitchen/blog/posts/a-history-of-the-html-slot-element}.
+
+The longevity of the process exemplified above might imply and justify the existence of critiques against the Web Components standard. By investigating the most common reasons, it appears that they were mainly concerned with cross-browser discrepancies, partial standard adoption, and frequent API changes. Serhii Kulykov, a developer currently working at Vaadin – a company which uses Web Components with an open sourced web application platform – critically reviews in his series of blogs\footfullcite{devToWC1} \footfullcite{devToWC2} about Web Components and gives an insight view regarding most of the problems previously mentioned.
+
+To summarize, Web Components became standardised and supported by all the major browsers only recently. This suggest that their popularity and adoption rate could lead to a more substantial increment within the web technology market share in the future. Consequently, attracting more developers, who develop more tools leading to possible improvements of the standard itself, as argued above when talking about the connection of standardization and external solutions development. Ultimately this could lead to a substantial front-end innovation.
+
+Looking at the state of art adopters, ING\footfullcite{ing}, AXA\footfullcite{axa} and IBM\footfullcite{ibm} are three examples of companies that implement and open source their design systems based on Web Components. Various other components implementations are also present in some of the biggest websites. For example, just to name a few: GitHub, YouTube, Google Earth are among the adopters of Web Components. Especially, Google with its Web Components library, called LitElement, seems committed to the technology. In paragraph 3.3 Web Components libraries a more extensive analysis of LitElement will be presented.
+
+As seen up to this point, the overview of state of the art highlights some of the challenges and opportunities for future Web Components development. Before delving into an overview of the WebAPIs technicalities, an introduction to JavaScript Modules will be presented in the following paragraph.
 
 \subsection{JavaScript Modules}
+\label{subsec:jSModules}
 
-To be continued.
+JavaScript modules (also known as “ES Modules” or “ECMAScript Modules”) are core to the modern web development and can be considered as a prerequisite for the Web Components technology. The definition of a module seems to be quite consistent across the subject literature. A module can be defined as: “[…] a piece of program that specifies which other pieces it relies on and which functionality it provides for other modules to use (its interface).”\footfullcite{EloquentJavascript}.
+
+From a general point of view, modules act as a glue connecting components or code dependencies and therefore allowing for code splitting and composition. This implies the advantage of writing and maintaining a code structure that can be both understandable and maintainable. This can be particularly beneficial for developers (usually people who did not create the original code). Most likely, without modularization, code would be destined to become exponentially complex to organise in relation to the growth of project features.
+As written in the “Modules” chapter of “Eloquent JavaScript” book:
+
+\begin{displayquote}
+
+“The phrase “big ball of mud” is often used for such large, structureless programs. Everything sticks together, and when you try to pick out a piece, the whole thing comes apart, and your hands get dirty.”\footfullcite{EloquentJavascript}
+
+\end{displayquote}
+
+This quote resembles the “Tar Pits” metaphor as seen in chapter \ref{ch:ch2_ProjectManagement} \emph{Project management approaches in interdisciplinary projects}, when talking about some of the most common causes leading to failures of software projects from the managerial perspective. Here, the author makes arguments in favour of spending additional time for planning and coding structuring phases. A relevant example might come from the experiences and feelings of many developers who worked or are working with structureless or badly structured code. It may often appear that rewriting code from scratch could be easier than trying to extract it from its original context. 
+By joining these two evocative concepts, “big ball of mud” and “tar pits”, a step forward in the direction of project quality improvement can be made. This would mean recognising and preventing the root causes leading to the negative symptoms described above. A possible solution may come from an appropriate combination of good programming practices and management skills.
+
+In 2015 JavaScript introduced its own standardized module system, called ES Modules\footfullcite{mdnModules} with its own import-export syntax. Since 2018 the JavaScript Modules standard is supported by all the major browsers natively\footfullcite{canIUseEs6Module}. Nowadays, this is standard but initially the web components technology used to have a fourth element, HTML imports\footfullcite{mdnImports}. The latter was intended as a packaging mechanism for including HTML documents inside other HTML documents. However, the standardization attempt failed since the browser vendors decided not to support it.
+
+A simple example of ES Modules usage logic can be seen in the next code snippet. Assuming the following file structure as proposed in Code \ref{codeModules}.
+\\
+\begin{lstlisting}[caption={File structure with a module},label={codeModules}, language=JavaScript]
+index.html
+main.js
+modules/ // directory
+    utils.js
+\end{lstlisting}
+
+In this example one of the functions defined in the file “utils.js” is used inside “main.js” script. This is done by exporting functionality from the module and importing it inside the script thanks to “import” and “export” statements:
+\\
+\begin{lstlisting}[caption={Import, export directives},label={codeImportExport}, language=JavaScript]
+// main.js
+import { create } from "./modules/utils.js";
+
+const element = create (document.body, "article-segment");
+
+// utils.js
+
+const MEDIA_TYPES = {
+    VIDEO: "video",
+    AUDIO: "audio",
+    IMAGE: "image"
+}
+
+function createAndAppendParagraph(parent, className) {
+    let paragraphElem = document.createElement("p");
+    paragraphElem.classList.add("${className}");
+    parent.appendChild(paragraphElem);
+}
+
+export { MEDIA_TYPES, create }
+\end{lstlisting}
+
+The code above exports two types of variables, a constant “MEDIA\_TYPES” and a function “createAndAppendParagraph”. In this way any JavaScript construct can be exported if it is not a top-level item, that is: an item not nested inside objects or functions etc. The main script imports one of the exported functionalities, namely the “create” function. The latter is called within “main.js” and appends a DOM HTML paragraph to the parent (passed through the “parent” parameter”) with the class as specified in the “className” parameter. By analogy, the constant “MEDIA\_TYPES” could be imported by an indefinite number of JavaScript scripts. For example, since JavaScript does not implement an “enum” data type it could be used for the purpose of simulating immutable data through code.
+In this perspective, modules are crucial for Web Components. Starting from how custom elements are instantiated into an HTML document via the import directive to the inner dependencies between components. Modules allow to avoid conflicts in the global JavaScript namespace, where components could interfere with one another (a concept that will be further extended in section \ref{subsec:shadowDOM} \emph{Shadow DOM}).
+
+By expanding upon the idea of reusability, Web Components should enable developers to pick and use components created from anyone and to incorporate them into their own projects. Indeed, components in general should work like LEGO blocks. Since a Web Component may rely on other Components to work, the modules system provides the mechanism to connect or “glue” everything together in an organised manner. This resolves the “big ball of mud” software problem.
+
+Finally, it might be argued that modularization is crucial for most good practices of software development. Principles like those introduced by Robert C. Martin, commonly called: “SOLID Design Principles”\footfullcite{wikiSolid} but also other principles with rather fascinating acronyms like: DRY\footfullcite{wikiDRY}, KISS\footfullcite{wikiKiss} and YAGNI\footfullcite{wikiYagni} can be thought as a developer’s Swiss Army knife (as a positive metaphor for usefulness and adaptability) for solving present and future software problems. From the web developer’s perspective this may suggests a more efficient and productive way of working. Continuing this tendency of beneficial features in the next paragraphs Web Components APIs will be presented.
 
 \subsection{Custom Elements}
+\label{subsec:customElements}
 
-To be continued.
+Custom Elements, as defined in the W3C living standard\footfullcite{w3cCustomElems}, can be introduced as: “A set of APIs that allow you to define custom elements and their behaviour, which can then be used as desired in your user interface.”\footfullcite{mdnWC}
+
+From a practical perspective, Custom Elements enable to programmatically extend the base HTMLElement\footfullcite{mdnHTMLElem} (an interface that represents any HTML element) via a Custom Registry API\footfullcite{mdnCustomElemRegistry}. Hence, calling the “CustomElementRegistry” method “define” allows to define a new custom element as demonstrated in the Code \ref{codeCustomElem} Custom Element definition. This turns out to be a powerful combination for enriching the HTML native vocabulary of elements with custom tags containing encapsulated functionality.
+\\
+\begin{lstlisting}[caption={Custom Element definition},label={codeCustomElem}, language=JavaScript]
+class VideoEditor extends HTMLElement {
+    constructor() {
+        super();
+        // Some element functionality here
+        ...
+    }
+}
+window.customElements.define("video-editor", VideoEditor);
+\end{lstlisting}
+
+Custom Elements are created by using the JavaScript class syntax which enables inheritance through the “\emph{prototypal chain}” from HTMLElement interface. In the above example, the code in line 9 registers a Custom Element named “video-editor” (a dash is required by the syntax) whose definition is contained in the class “VideoEditor”, that in turn defines the element’s behaviour.
+From now on, the “video-editor” Custom Element can be used just as any other native HTML tag.
+\\
+\begin{lstlisting}[caption={Custom Element usage},label={codeCustomElemUse}, language=JavaScript, numbers=none]
+<video-editor></video-editor>
+\end{lstlisting}
+
+As mentioned, the class syntax is used to extend the native HTMLElement interface through inheritance. Figure \ref{fig:HTMLInheritance1} HTML Element Interface depicts the native hierarchy of Browser APIs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/HTMLElement - Web APIs MDN.png}
+\caption{HTML Element Interface}
+\label{fig:HTMLInheritance1}
+\end{figure}
+
+In this context, the result of registering the custom element could be viewed as in Figure \ref{fig:HTMLInheritance2} DOM Inheritance.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/inherit.jpg}
+\caption{DOM Inheritance}
+\label{fig:HTMLInheritance2}
+\end{figure}
+
+In this way a new \emph{"Autonomous Custom Element"} was created. As seen in the examples, these are elements that do not directly inherit from other elements in the HTML vocabulary (apart from the HTMLElement root). As a matter of fact, the API allows to create two types of custom elements. The second type is called \emph{“Customized built-in Element}”, meaning that the custom element extends a built-in HTML element. For example a HTML "p" tag, standing for a paragraph element or the HTML “img” tag standing for image element, and so on.
+At the time of writing, the Customized built-in elements have a slightly more limited browser support\footfullcite{canIUseCustomElems}. Furthermore, in this work only Autonomous Custom Elements were used. 
+
+Another important feature of Custom Elements are lifecycle hooks. These hooks – or more precisely, callback functions – can be defined in the class constructor and are automatically executed when elements enter one of the following states\footfullcite{googleWC}:
+
+\begin{itemize}
+\item connectedCallback: when the element is appended for the first time into a document’s DOM.
+\item disconnectedCallback: when the element is removed from a document’s DOM.
+\item adoptedCallback: when the element’s is moved to a new document.
+\item attributeChangedCallback: when the element’s attributes are added, removed, or changed.
+\end{itemize}
+
+A frequent usage example can be made by considering Custom Element initialization and the update phase. The former triggers a connectedCallback method. Within this method, an initial state of the Component can be set: namely, API calls to populate the User Interface, registration of event handlers etc. Later an update phase can occur when one or more Component attributes change thanks to the attributeChangedCallback method. This is the case of reacting to user actions such as form actions, resolution changes, various interactions on interactive elements and so on. These changes can be automatically captured and reflected dynamically thanks to Component attributes. For example, if users interact with a server, the application state could change. A common scenario is generating a loading state. While the application is waiting for the server response, it can generate the appropriate feedback (a spinner element, helpful text messages etc.).
 
 \subsection{Shadow DOM}
+\label{subsec:shadowDOM}
 
-To be continued.
+Shadow DOM API as referred in the standard, can be defined as: 
+
+\begin{displayquote}
+
+“A set of JavaScript APIs for attaching an encapsulated "shadow DOM” tree to an element — which is rendered separately from the main DOM document — and controlling associated functionality.”\footfullcite{whatwgSD}
+
+\end{displayquote}
+
+In other words, it enables to attach a separate, encapsulated DOM which is isolated from the rest of the page. This is particularly useful for Custom Elements. It implies that the functionality defined inside a component, i.e., styles, markups and behaviour is limited (encapsulated) within the Shadow DOM boundaries. In other terms, anything happening inside a Shadow DOM does not have any effect outside of it.
+
+The Shadow DOM API method, “attachShadow”\footfullcite{mdnShadow} is used for attaching a shadow DOM to an HTML Element (therefore any\footnote{Shadow DOM cannot be attached to every HTML element, a list of HTML element supporting this functionality can be found in the documentation.} autonomous custom elements defined in the previous section).
+
+The consequences can be seen with an example. Given two components: “Component A” and “Component B”, supposedly both containing an HTML input element with an attribute, “id” set to value “input-1”. Standing to the HTML best practices “ids” should be unique in the entire document. This is not the case of this example as “Component A” DOM is fully separated from “Component B” DOM. Therefore, elements referred by the id “input-1” can be styled and referenced separately for the two components even if they were instantiated inside the same application.
+
+Code \ref{codeShadowDOM} shows the shadow DOM attachment to a standard HTML Element and a Custom Element.
+\\
+\begin{lstlisting}[caption={Shadow DOM attachment},label={codeShadowDOM}, language=JavaScript]
+// Shadow Root attachment to HTML <article> element
+const htmlInput = document.createElement("article")
+        .attachShadow({ mode: "open" });
+
+// Shadow Root attachment to Custom Element
+class VideoEditor extends HTMLElement {
+    constructor() {
+        super();
+        // Some element functionality here
+        ...
+        this.attachShadow({ mode: "close" });
+    }
+}
+\end{lstlisting}
+
+The Shadow DOM API allows to attach two types of Shadow DOM. An open shadow root allows accessing the DOM outside of the HTML element definition while a closed shadow root does not expose the DOM outside of the element. In the latter case the DOM cannot be referenced and accessed outside of its context. In theory, it exists in the flow of the document since it is rendered but its functionality is hidden from the rest of the page. However multiple ways of “hacking through” the limitations of closed shadow root exist\footfullcite{ShadowDomBlog}, therefore the usage of open shadow DOMs is recommended.
+
+Finally, an overview to summarize the concepts introduced can be seen in Figure 4.2.3-1: DOM Tree and Shadow Tree.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/shadowdom.jpg}
+\caption{DOM Tree and Shadow Tree (from: MDN, licensed under CC-BY-SA 2.5)}
+\label{fig:HTMLInheritance2}
+\end{figure}
+
+Some basic terminology is also explained in the documentation\footfullcite{mdnUsingShadow}:
+
+\begin{itemize}
+\item Shadow host: The regular DOM node that the shadow DOM is attached to.
+\item Shadow tree: The DOM tree inside the shadow DOM.
+\item Shadow root: The root node of the shadow tree.
+\item Shadow boundary: the place where the shadow DOM ends, and the regular DOM begins.
+\end{itemize}
 
 \subsection{HTML Templates}
+\label{subsec:HTMLTemplates}
 
 To be continued.
 
 \section{Web Components libraries}
+\label{sec:wCLibraries}
 
 To be continued.
 
 \section{Project idea and Front End Software Architecture}
+\label{sec:SoftwareArchitecture}
 
 To be continued.
 
@@ -45,37 +279,46 @@ To be continued.
 \end{figure}
 
 \section{Searching and displaying results}
+\label{sec:searchingResults}
 
 To be continued.
 
 \subsection{Search component}
+\label{subsec:searchComponents}
 
 To be continued.
 
 \subsection{Results viewer component}
+\label{subsec:resultsComponents}
 
 To be continued.
 
 \section{Multimedia Editor}
+\label{sec:multimediaEditor}
 
 To be continued.
 
 \subsection{Track Editor component}
+\label{subsec:trackEditpr}
 
 To be continued.
 
 \subsection{Media Preview component}
+\label{subsec:mediaPreview}
 
 To be continued.
 
 \section{Application examples}
+\label{sec:appExamples}
 
 To be continued.
 
 \subsection{PH-Remix}
+\label{sec:phRemixApp}
 
 To be continued.
 
 \subsection{Multimedia Editor}
+\label{sec:multimediaEditorApp}
 
 To be continued.
