@@ -165,7 +165,7 @@ window.customElements.define("video-editor", VideoEditor);
 Custom Elements are created by using the JavaScript class syntax which enables inheritance through the “\emph{prototypal chain}” from HTMLElement interface. In the above example, the code in line 9 registers a Custom Element named “video-editor” (a dash is required by the syntax) whose definition is contained in the class “VideoEditor”, that in turn defines the element’s behaviour.
 From now on, the “video-editor” Custom Element can be used just as any other native HTML tag.
 \\
-\begin{lstlisting}[caption={Custom Element usage},label={codeCustomElemUse}, language=JavaScript, numbers=none]
+\begin{lstlisting}[caption={Custom Element usage},label={codeCustomElemUse}, language=HTML5, numbers=none]
 <video-editor></video-editor>
 \end{lstlisting}
 
@@ -214,7 +214,7 @@ Shadow DOM API as referred in the standard, can be defined as:
 
 In other words, it enables to attach a separate, encapsulated DOM which is isolated from the rest of the page. This is particularly useful for Custom Elements. It implies that the functionality defined inside a component, i.e., styles, markups and behaviour is limited (encapsulated) within the Shadow DOM boundaries. In other terms, anything happening inside a Shadow DOM does not have any effect outside of it.
 
-The Shadow DOM API method, “attachShadow”\footfullcite{mdnShadow} is used for attaching a shadow DOM to an HTML Element (therefore any\footnote{Shadow DOM cannot be attached to every HTML element, a list of HTML element supporting this functionality can be found in the documentation.} autonomous custom elements defined in the previous section).
+The Shadow DOM API method, “attachShadow”\footfullcite{mdnShadow} is used for attaching a Shadow DOM to an HTML Element (therefore any\footnote{Shadow DOM cannot be attached to every HTML element, a list of HTML element supporting this functionality can be found in the documentation.} autonomous custom elements defined in the previous section).
 
 The consequences can be seen with an example. Given two components: “Component A” and “Component B”, supposedly both containing an HTML input element with an attribute, “id” set to value “input-1”. Standing to the HTML best practices “ids” should be unique in the entire document. This is not the case of this example as “Component A” DOM is fully separated from “Component B” DOM. Therefore, elements referred by the id “input-1” can be styled and referenced separately for the two components even if they were instantiated inside the same application.
 
@@ -244,7 +244,7 @@ Finally, an overview to summarize the concepts introduced can be seen in Figure 
 \centering
 \includegraphics[width=1\textwidth]{images/shadowdom.jpg}
 \caption{DOM Tree and Shadow Tree (from: MDN, licensed under CC-BY-SA 2.5)}
-\label{fig:HTMLInheritance2}
+\label{fig:shadowDom}
 \end{figure}
 
 Some basic terminology is also explained in the documentation\footfullcite{mdnUsingShadow}:
@@ -259,17 +259,95 @@ Some basic terminology is also explained in the documentation\footfullcite{mdnUs
 \subsection{HTML Templates}
 \label{subsec:HTMLTemplates}
 
-To be continued.
+The HTML Templates technology consists of HTML template\footfullcite{whatwgTemplate} and HTML slot\footfullcite{whatwSlot} elements, specified by the W3C living standards. Among the main characteristics, they allow to produce reusable content that can be defined, referenced by JavaScript, and later instantiated inside the DOM Document. This can be useful for creating content with redundant structure only once.
+
+The Template element “is a mechanism for holding HTML that is not to be rendered immediately when a page is loaded but may be instantiated subsequently during runtime using JavaScript.”\footfullcite{mdnTemplate} This definition suggests that HTML structures of arbitrary complexity can be created and dynamically appended to the DOM Document.
+\\
+\begin{lstlisting}[caption={HTML Template creation},label={htmlTemplate}, language=HTML]
+<template class="image-gallery">
+    <ul class="gallery-list">
+        <img src="firstImage.png" alt="first image description">
+        <img src="secondImage.png" alt="second image description">
+    </ul>
+</template>
+\end{lstlisting}
+
+Notably, this approach can be used with and within Web Components to produce templates of components. Therefore, components can be put inside templates and instantiated when and where necessary.
+While templates are a more general purpose mechanism, the slot element was introduced specifically for the Web Components technology context.  Thanks to the “slot” tag, developers can create placeholders inside Web Components that allow to instantiate additional children with their own separate DOM trees. Compared to templates, slots offer greater flexibility and configurability (intended as the possibility of instantiating dynamically generated markup). By expanding upon the last example, it should be possible to visualize how slots enable greater flexibility.
+\\
+\begin{lstlisting}[caption={Slotted templates},label={slottedTemplate}, language=HTML]
+<template class="image-gallery">
+    <ul class="gallery-list">
+        <slot name="image-description"></slot>
+        <img src="firstImage.png" alt="first image description">
+        <slot name="image-footer"></slot>
+        ...
+    </ul>
+</template>
+\end{lstlisting}
+
+From now on, any valid HTML element can replace the slot placeholders by referring to their name attribute (indeed, they can also be called “named slots”). A paragraph with an image description can be expected on top of the "img" element, also a footer containing the author’s credits and a hyperlink to other similar work can be imagined.
+
+This procedure allows for greater reuse of specific parts of markup, the latter can be instantiated differently depending on the context. Another example comes from the work done for this dissertation project. The Query-Text Web Component – in practice a search bar – can be optionally instantiated with a “slottable” button coming from an external Web Components library with its own Shadow DOM and encapsulated behaviours (figures: \ref{fig:queryTextBase} Query-Text base class and \ref{fig:queryTextSlotted} Query-Text with slotted search button demonstrate these differences).
+
+Overall, templates and slots in conjunction allow for a powerful composition of markup, thus preventing redundancy and shortening the code. 
 
 \section{Web Components libraries}
 \label{sec:wCLibraries}
 
-To be continued.
+Web Components libraries were created with the main intent of simplifying and speeding up the development process. Libraries usually provide some sort of abstractions on top of the native Web Components for efficiency and in order to enable new features.
+
+During the planning phase, some of the most popular and active Web Components libraries were considered for adoption: LitElement\footfullcite{lit}, FAST\footfullcite{fast}, hybrids\footfullcite{hybrids}, Stencil\footfullcite{stencil} and Adobe Spectrum\footfullcite{spectrum}.
+By looking at these proposals and the companies behind each library, it emerges that some important organisations are investing in and actually using the Web Components technology. Namely, FAST is authored by Microsoft, LitElement by Google, Adobe by Adobe, and Stencil is made by the Ionic Framework team\footfullcite{ionic}. Hybrids is an exception since it is a community based effort.
+
+As anticipated, LitElement was the choice for the dissertation’s project. It originated from Google’s Polymer library. This library was mainly chosen due to its popularity, the presence of a large and thriving community involved in the project and a high quality exhaustive documentation\footfullcite{litDocs}. Certainly, the features offered and the fact that LitElement is fully compatible with all the browsers which adopt the native Web Components technology was also crucial during the decision making process.
+Indeed, LitElement is an abstraction over the native HTMLElement. By using LitElement class-based components, developers are extending the LitElement class which in turn extends HTMLElement behind the scenes.
+
+LitElement provides features like reactive state, scoped styles, and a declarative template system that are extensively used during this project’s development. The former can also be defined as reactive properties, i.e., properties that hold the state of the component. This implies that changing one or more of the components' reactive properties automatically triggers an update cycle, re-rendering the component. From the developer point of view this is a big simplifier. Indeed, by combining another LitElement feature, declarative templates, the User Interface can be efficiently updated and almost without writing any code.
+
+Lit templates allow to render dynamic contents thanks to many helper operators. As stated in the official documentation\footfullcite{litTemplates}:
+
+\begin{itemize}
+\item Expressions: Templates include dynamic values called expressions that can be used to render attributes, text, properties, event handlers, and even other templates.
+\item Conditionals: Expressions can render conditional content using standard JavaScript flow control.
+\item Lists: Render lists by transforming data into arrays of templates using standard JavaScript looping and array techniques.
+\end{itemize}
+
+Finally, thanks to the scoped styles feature, LitElement automatically attaches a Shadow DOM to the component. This allows to define encapsulated styles that affect only the components context.
 
 \section{Project idea and Front End Software Architecture}
 \label{sec:SoftwareArchitecture}
 
-To be continued.
+In this section, a brief discussion about the project idea and its evolution will be introduced followed by a description of the adopted front-end software architecture. As mentioned in this work’s introduction, the application idea was originated from the activities related to the “PH-Remix” interdisciplinary project.
+
+The practical project work of this dissertation is mainly concerned with the development of an in-browser multimedia editing tool. This tool – called “Remix environment” or “Remix platform” in the PH-Remix context – allows for discovery and reuse of multimedia content.
+
+Two phases of development can be extrapolated from a temporal perspective. In the first phase, the application was subject to goals and requirements defined for the “PH-Remix” project. In the second phase, the application was expanded upon to fit a more general scenario. These two phases ought not to be considered as mutually exclusive. On the contrary, thanks to modularity and configurability, the application can accommodate the requirements of the “PH-Remix” project as well as alternative project ideas and implementations. The latter point might be viewed as particularly interesting in the context of this work’s narrative. By demonstrating that multiple applications can be made using the same components it seems that a remix can be applied to the software world. The components can be assembled like LEGO blocks alongside with other components developed from the community, an argument best exemplified in paragraph \ref{sec:appExamples} Examples of applications.
+
+The first step of this work involved defining an appropriate software architecture and was done thanks to the collaboration with the “PH-Remix” project members. Consequently, the project was initialized with the subsequent goal of producing an application prototype. The prototype can be seen as an evolutionary prototype\footfullcite{wikiPrototyping} due to the adopted architecture that can be easily refined and expanded.
+
+The front-end architecture was driven by the principles of microservices architecture\footfullcite{redHat}. Namely, the Web Components technology is used as foundation for adopting the separation of concerns design principle\footfullcite{wikiSoc} between application components. The main choices for the adoption of Web Components adoption were made by keeping in mind the benefits of flexibility, maintainability, and scalability. Also, for the sake of efficiency and productivity LitElement was adopted as the Web Component library.
+
+The core front-end structure is composed of the following components: 
+
+\begin{itemize}
+\item Video-Editor-App
+    \begin{itemize}
+        \item Video-Preview
+        \item Track-Editor
+    \end{itemize}
+\item Query-Ui
+    \begin{itemize}
+        \item Query-Text
+        \item Result-Media
+    \end{itemize} begins.
+\end{itemize}
+
+As seen in the list above, two components’ levels can be distinguished. On the top-level, the “Video-Editor-App” and “Query-Ui” act as wrappers. They can instantiate the components below. They are designed for managing the communication between the client side and the server side through API calls. Therefore, they are more project specific – than the components at one level below – and must be configured in order to request and retrieve application specific data. Similarly, the Query-Ui acts as wrapper enabling communication between Query-Text and Result-Media components.
+This suggests another architectural choice. The rest of the components are isolated and are not concerned with the state of other components. Strictly, the communication with the external world is not allowed. They can be used independently in other application contexts and for different purposes. In other words, they should be operational and testable in isolation.
+However, communication is possible, and necessary to compose the components into a coherent application. Therefore, the following planned communication rules were established. Data can be passed top-down through properties and can be lift-up through Custom Events\footfullcite{mdnCustomEv}. For example, “Query-Ui” receives a search string from the Query-Text component, sends it through an API to a search engine and returns the results to the media viewer, also known as “Media-Result”.
+
+This architecture can be seen in Figure \ref{fig:appMockUp} Application architecture Mock-up.
 
 \begin{figure}[H]
 \centering
@@ -278,35 +356,259 @@ To be continued.
 \label{fig:appMockUp}
 \end{figure}
 
+Each of these components will be explained in more details in the next sections. 
+
+Another important aspect regards the organizational choices. That is, the way the repository is organised, how the code structure is made, how the build and deploy phases are designed.
+
+Firstly, components were designed to be independent and therefore, they can reside within separate online repositories. From a practical point of view, after some development iterations, an alternative approach was adopted. A monorepo\footfullcite{atlassian} setup was undertaken with the help of the Lerna\footfullcite{lerna} library. Monorepo is a simple repository which contains a number of projects inside the same centralized container. Since the components are used as dependencies which are injected or arranged into an application, this helps to organise and speed up the development. Nevertheless, nothing prevents from extracting components into separate repositories anytime.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/repository.png}
+\caption{Project repository structure}
+\label{fig:repoStructure}
+\end{figure}
+
+The figure \ref{fig:repoStructure} shows a flat structure of components, although they can be dependent on one other. For example, “Query-Ui” can depend upon “Query-Text” specifying the latter as a project dependency inside its “package.json”. By adopting a monorepo structure the dependencies are always at hand, ready to be modified and at the same time they maintain their own commit history. Lerna is a tool that further optimizes this workflow. Among the most prominent features, it allows for dependency hoisting, versioning with the possibility of publishing components into registries like npm, and many others.
+
+In addition, the repository structure is well suited for automation. In particular, the “index.js” file provides an entry point for every component. In this context JavaScript module bundlers can be easily implemented.
+\\
+\begin{lstlisting}[caption={Component entry point example},label={componentEntrypoint}, language=JavaScript]
+import { QueryText } from "./src/QueryText.js";
+window.customElements.define("query-text", QueryText");
+\end{lstlisting}
+
+The figure above depicts the Query-Text component although its structure is identical for every other component. Again, the objective is to offer a robust way of distributing the application as a whole and a future-proof structure for project evolution. Indeed, the last step of a development iteration in the software world is usually informally referred to by the colloquial expression “going to production”. The practical meaning is about publishing the code to the server and therefore offering it to the final users. At this point the common wish is to have the most optimized code possible. In the web development scenario this can be done with the help of module bundlers. Among prominent features, they allow to resolve dependencies, produce module maps for efficiency, and subsequently minify all the code.
+
+Finally, several dependencies providing additional features are shared by all the components, therefore they will not be included in the descriptions contained in the next paragraphs. The dependencies were chosen and adopted following the Open Web Components initiative\footfullcite{openWC} indications. Their mission is to provide a list of best practices and recommendations for developing and sharing Web Components.
+
+Therefore, a brief list of development dependencies is included in the project. Firstly, the purpose is indicated followed by a tool or a list of tools names and their brief description.
+
+\begin{itemize}
+\item Linting and Code checking: ESLint\footfullcite{esLint}, Prettier\footfullcite{prettier}. 
+    \begin{itemize}
+        \item These tools allow to keep consistent code formatting styles and avoid the most common problems by performing a statical code analysis.
+    \end{itemize}
+\item Testing: Karma, Mocha.
+    \begin{itemize}
+        \item Testing environment for unit testing, integration testing and mocking.
+    \end{itemize}
+\item Interactive documentation: Storybook\footfullcite{storybook}
+    \begin{itemize}
+        \item It allows to visually describe the components with all the states they can assume.
+    \end{itemize}
+\item Building and deployment: Rollup\footfullcite{rollup}
+    \begin{itemize}
+        \item JavaScript module bundler used for library or application deployment.
+    \end{itemize}
+\end{itemize}
+
+The next paragraphs introduce and briefly explain each component. The goal is to provide the core information about their structure and present some of the most interesting challenges encountered during development. Therefore, the next sections are not intended as a software documentation guiding through all the processes from installation to deployment. The documentation can be found by following each component’s links or by exploring the project’s root repository\footfullcite{rmxRepo}.
+
 \section{Searching and displaying results}
 \label{sec:searchingResults}
 
-To be continued.
+Searching and displaying the retrieved results can be considered pivotal for applications whose success can be largely measured in terms of the quantity and the quality of offered resources. Consequently, the main benefits that come from a good implementation might involve improved content discoverability and better user engagement.
+
+These objectives were pursued by developing three components. First, a component called Query-Ui\footfullcite{rmxQueryUI} will be introduced. It is a connector between the client and server side and can be seen as a top level wrapper governing the functionalities below, of its children’s components. Indeed, it instantiates two components: “Query-Text”, which manages the search and autocomplete feature while “Result-Media” is concerned with the rendering of results found.
+Notably, Query-Ui manages all the logic and information flow coming from the instantiated components. It also sends and receives data from external APIs, thereby passing data “downwards”, to the wrapped components.
+
+An example of this relationship can be seen in the Code below.
+\\
+\begin{lstlisting}[caption={Query-Ui component instantiation},label={queryUi}, language=HTML5]
+<query-ui>
+  <query-text 
+  .dictionaries=${this.dictionaries} placeholder=${this.placeholder}>
+  </query-text>
+  <result-media 
+  .answerSet=${this.searchResults} headerTitle=${this.headerTitle}>
+  </result-media>
+</query-ui>
+\end{lstlisting}
+
+In this simplified example taken from one of the possible application configurations, properties and attributes are passed down to the components. Continuing with this practical example, Query-Ui internally makes an API call to the server side. In return, the endpoint responds with a dictionary – a list of words that can be autocompleted – which can be then passed to the search component. Namely, Query-Text. The principles guiding the de facto search feature are similar. The difference in implementation regards the presence of an event listener which is triggered every time users make a search. Ultimately, the results generated from the server are passed to the result viewer component, via the “answerSet” property, which renders them.
 
 \subsection{Search component}
 \label{subsec:searchComponents}
 
-To be continued.
+The Search component, named “Query-Text”\footfullcite{rmxQueryText} provides search and autocomplete functionalities within multi-keyed dictionaries of strings.
+
+The idea behind Query-Text was to create a “google-like” search functionality based on lists of keywords. This is done by providing a list of prefixed dictionaries during the component instantiation. The component extracts keys from the dictionary and uses them as prefixes for autocompletion purposes. An example of valid dictionaries – not to be confused with dictionary data structures present in many programming languages – is exemplified the Code below.
+\\
+\begin{lstlisting}[caption={Dictionaries examples},label={dicts}, language=JavaScript, numbers=none]
+{
+    "filmmaker:":
+        ["Martin Scorsese", "Ridley Scott", "Woody Allen", ...]
+    "#:":
+        ["goat", "chair", "mountain", ...]
+    ...
+}
+\end{lstlisting}
+
+In this example, two prefixes are present: “filmmaker:” and "\#". When users start typing one of the recognised prefixes, autocompletion based on that prefixed list of strings will be proposed. For example, by typing “\#:mou” a suggestion for the word “mountain” will be made.
+
+Finally, by pressing the “ENTER” key or alternatively by clicking on the search button (if present), the component emits an event (through Custom Event bubble\footfullcite{mdnEvBubble}) with the actual value of the query string. An important feature is implemented to provide “fuzzy search” with autocompletion when user types into the search bar. Fuzzy search allows to tackle the possibility of typing errors made by users. A configurable options list is implemented with a scoring system offered by "Fuse.js" library\footfullcite{fuse}. Indeed, for example, if the word “montan” is typed, the user will be offered the “mountain” suggestion.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/autosuggest.png}
+\caption{Query-Text autosuggestion feature}
+\label{fig:queryTextAutosuggest}
+\end{figure}
+
+One of the possible issues that could arise regards the component performances. Especially when included within a more complex application, a performance-related issue emerges when users start to type fast onto the search bar. This implies the generation of a large number of DOM events and API calls if users decide to search the typed text. This issue was tackled by implementing a “debounce”\footfullcite{cssTricks} technique which limits the quantity of processed events. With configurable parameters, this instructs the autocomplete function to wait some arbitrary period of time in the order of milliseconds before taking any further action. Namely, it suggests words from the dictionary or sends the searched text to the search engine via API.
+
+Finally, two examples of Query Text are exemplified in the figures below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/QueryText.png}
+\caption{Query-Text base class}
+\label{fig:queryTextBase}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/QueryTextSlotted.png}
+\caption{Query-Text with slotted search button}
+\label{fig:queryTextSlotted}
+\end{figure}
+
+The Figure \ref{fig:queryTextBase} shows the bare minimum component. Secondly, the figure \ref{fig:queryTextSlotted} shows an example of a button instantiated within the Query-Text slot.
 
 \subsection{Results viewer component}
 \label{subsec:resultsComponents}
 
-To be continued.
+As the name suggests, the “Media-Result” component renders some results onto the interface. For this project, search results are displayed as a gallery of thumbnails allowing for content selection and discovery. Importantly, the figures – or cards, as they are commonly called across UI libraries – can be dragged away from the component. This feature enables many possibilities as explored more in detail when introducing the track editor component. Specifically, with the help of the native Drag and Drop API\footfullcite{mdnDnD} some information about the object can be transferred through the drop event.
+
+The adopted preview style can be seen in the Figure \ref{fig:mediaResults} Media-Result example.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/ResultsMedia.png}
+\caption{Media-Result example}
+\label{fig:mediaResults}
+\end{figure}
+
+As mentioned before, these figures can be dragged and dropped to any valid drop target. Indeed, when users start dragging an object from the gallery,an event is triggered. This event is connected to the creation of a DataTransfer object\footfullcite{mdnDataTransf} containing all the necessary information to be transferred. For example, dragging a thumbnail that represents a video implies the insertion of the video duration onto the transferred data object. The latter can be read once the dragged item is dropped.
+
+Additional features can also be optionally enabled. Since image thumbnails might not always be self-explanatory, the tooltip feature is also implemented in this project. Users can find further details about the resource by “hovering” on top of each media result. Continuing with the video result example, a tooltip may contain information about its title, duration, etc. Lastly, users might also be interested in reproducing the media directly inside the application. This is done by pressing the “play” button in combination with the “Video-Player” component which will be discussed in \ref{subsec:mediaPreview} Media Preview component.
 
 \section{Multimedia Editor}
 \label{sec:multimediaEditor}
 
-To be continued.
+The most characterizing piece of this project is the Multimedia Editor. It is a top level wrapper that orchestrates the application specific behaviour. The Multimedia Editor is called “Video-Editor-App” in the project repository but by design it should be re-named and configured in relation to the application purpose. In this case, it instantiates the Track-Editor and the Video-Preview components.
+
+As a result, the application allows to combine and arrange image, sound, and video resources by dragging them from the Result-Media component into an interactive track. Subsequently, the elements arranged in the track can be viewed inside a player and potentially exported with the help of a back end infrastructure. Although combine and preview operations are the concern of the respective components, the Multimedia Editor has a key role in making them work together. Similarly to Query-Ui, it can communicate with the outside world through APIs.
+
+The following markup reflects the relationship between components.
+\\
+\begin{lstlisting}[caption={Video-Editor-App component instantiation},label={videoAppComp}, language=HTML5]
+<video-editor-app>      
+      <video-preview
+        .resources=${this.resources}
+        .singleMediaPreview=${this.singleMediaPreview}
+        .executeSegmentsPreview=${this.playSegments}
+        .terminateSegmentsPreview=${this.endSegments}
+      ></video-preview>
+      <query-ui></query-ui>
+      <track-editor
+        draggedElementType=${this.draggedElementType}
+      ></track-editor>
+</video-editor-app>
+\end{lstlisting}
+
+The figure shows some of the properties that are used for synchronising the Track-Editor with its preview. As a matter of fact, the Video-Editor-App also manages the data flow originated from the Track-Editor. This cannot be seen in the markup because of the already mentioned design decision: “data can be passed top-down through properties and can be lift-up through Custom Events”. The latter explains the logic behind the interaction. This can be further demonstrated with the help of a practical example.
+
+A frequent scenario involves users that compose multimedia resources inside the editing track by dropping them from the content library of choice. At any moment it is possible to reproduce the arrangements made within Track-Editor component. At this point, the latter component sends an event upwards. This event is composed of a list of media elements – alongside information about their start and end dates – that were present inside the track at the exact time the “play” button was pressed. This information is captured by the Video-Editor-App whose job is to request media from external APIs. Lastly, when a successful response is available, the data is passed through to the Video-Preview, ready to be played. This behaviour will be discussed in further detail in the next sections.
 
 \subsection{Track Editor component}
 \label{subsec:trackEditpr}
 
-To be continued.
+“Track-Editor”\footfullcite{rmxTrackEdtior} is the most complex component created for this project application. It offers the core feature of arranging media content similarly to the way it is implemented by some of the alternative software for video editing. Its peculiarity is that it offers this functionality directly from the browser level.
+
+In detail, Track Editor can be composed of multiple tracks. Depending on the configuration, an arbitrary number of tracks can be used. Tracks refer to specific media types, for example: an audio, video, and image track. Every track has a temporal dimension which allows to perform some basic operations that are key for any editing tool. Indeed, a temporal marker is also implemented for keeping track of the currently reproduced media. This can be seen in the example below:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/TrackEditor.png}
+\caption{Track Editor example}
+\label{fig:trackEditor}
+\end{figure}
+
+Currently, the Track-Editor also allows to:
+
+\begin{itemize}
+\item Receive dragged media from the application library.
+\item Arrange media elements inside the tracks by dragging them back and forth.
+\item Resize or trim media in relation to their type.
+\item Dynamically zoom in and out the track and re-dimension all the content inside of it.
+\item Check whether a specific track can contain the dragged media type.
+\item Play, pause, and reset the media reproduction.
+\item Open a context menu for removing undesired media.
+\end{itemize}
+
+Some interesting points can be made from this list. First of all, operating with a content length of a few seconds is different from content whose duration might be in order of several minutes. This potential problem is mitigated by the zooming functionality. Also, some basic form of error prevention has been made to preserve the preview functionality. This is done by generating an informative message on the UI stating that a specific media type cannot be put inside a track.
+
+Finally, the ability of playing, stopping, and resetting the current tracks state is synchronized with the temporal marker – namely, the blue line in \ref{fig:trackEditor} Track Editor example.
+
+From the implementation perspective, when users press play, a Custom Event is dispatched. This event can be captured thanks to its bubble property, as showed in the Code below. 
+\\
+\begin{lstlisting}[caption={Track Editor event dispatch},label={customEvent}, language=JavaScript]
+function dispatchEventForPreview() {
+    const event = new CustomEvent('track-elements', {
+      detail: {
+        trackElements: this.segmentsOnTracks,
+      },
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(event);
+  }
+\end{lstlisting}
+
+This event transfers the current state of the Track-Editor. At a later stage this event can be captured and used for generating API requests.
 
 \subsection{Media Preview component}
 \label{subsec:mediaPreview}
 
-To be continued.
+The final part of this application is the media preview. The component that manages the preview is called “Video-Preview”\footfullcite{rmxVideoPreview}. As discussed in the previous paragraph, its main purpose consists in reproducing a synchronised preview of the media from the Track-Editor. Generally speaking, it can preview any number of media content, starting from a single preview to a large number of media with different media types.
+
+An interesting implementation choice can be derived from the synchronization feature. It might be argued that the component has intuitively some sort of an internal clock or at least some way of keeping track of the elapsed time. As a matter of fact, in this case this is not entirely true. Contrary to the Track-Editor, which implements an internal timer that guides the component state. It turns out that “Video-Preview” does not necessarily need one. And yet it works. Walking through an example may effectively demonstrate how things work internally. Before jumping into the example, a possible way of instantiating the component is presented in the figure below.
+
+An interesting implementation choice can be derived from the synchronization feature. It might be argued that the component has intuitively some sort of an internal clock or at least some way of keeping track of the elapsed time. As a matter of fact, in this case this is not entirely true. Contrary to the Track-Editor, which implements an internal timer that guides the component state. It turns out that “Video-Preview” does not necessarily need one. And yet it works. Walking through an example may effectively demonstrate how things work internally. Before jumping into the example, a possible way of instantiating the component is presented in the Code below.
+\\
+\begin{lstlisting}[caption={Video-Preview component instantiation},label={videoPreview}, language=HTML5]
+<video-preview
+        ?displayLoadingScreen=${this.displayLoadingScreen} 
+        ?stopPlayer=${this.stopPlayer}
+        ?resumePlayer=${this.resumePlayer}
+        .resources=${this.resources}
+        .executeSegmentsPreview=${this.playSegments} 
+        .terminateSegmentsPreview=${this.endSegments}
+></video-preview>
+\end{lstlisting}
+
+In particular, the “resources” property contains all the media items to be previewed. Hence, a video would be inserted into a HTML video source tag, an image would reside within an HTML img source and so on.
+
+Assuming the scenario of Track-Editor interaction with Video Preview. After putting an arbitrary number of media elements inside the tracks, the user presses the “play” button. Subsequently the following steps occur:
+
+\begin{enumerate}
+  \item All the media references are sent through a Custom Event.
+  \item The Event is captured by the top level Video-Editor-App component. It requests all the items using API calls.
+  \item The responses arrive asynchronously and are sent to the Video-Preview component for preview.
+  \item Track Editor starts its internal timer and checks if at the time 00:00:00 (in the minutes/seconds/milliseconds format) any media element has been positioned into the track. If yes, the next step is executed, otherwise the timer runs until it encounters an element on the track.
+  \item Track Editor emits the “executeSegmentsPreview” event containing one or more references to media elements that must be previewed.
+  \item The Event is captured by the top level Video-Editor-App component and passed immediately to the Video Preview component.
+  \item Video Preview selects the right resource(s) – from the resource list received in the step 3 – and starts the preview.
+  \item Once the media element duration ends, the Track Editor sends a “terminateSegmentsPreview” event.
+  \item The Event is captured by the top level Video-Editor-App component and passed immediately to the Video Preview component.
+  \item Video Preview selects the right resource(s) – from the resource list received in the step 3 – and stops the preview.
+\end{enumerate}
+
+This workflow – apart from the asynchronous API operations – happens with a near real time precision and continues as long as the user does not stop the reproduction or there are no more elements to be played on tracks.
+
+As exemplified, the above mechanism makes the whole synchronized preview system work without the necessity of implementing additional timers. The Track-Editor governs the current items being played. By adopting this implementation, the Video-Preview component is simpler and more performant.
 
 \section{Application examples}
 \label{sec:appExamples}

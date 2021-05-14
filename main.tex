@@ -65,9 +65,9 @@ title=\lstname % show the filename of files included with \lstinputlisting; also
  
 %define Javascript language
 \lstdefinelanguage{JavaScript}{
-keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, uint256, address, uint, string, bool, let, const},
+keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, uint256, address, uint, string, bool, let, const, CustomEvent},
 keywordstyle=\color{blue}\bfseries,
-ndkeywords={class, export, extends, define, super, boolean, throw, implements, import, this, constructor, pragma, contract, modifier, struct, mapping},
+ndkeywords={class, export, extends, define, super, boolean, throw, implements, import, this, constructor, pragma, contract, modifier, struct, mapping,},
 ndkeywordstyle=\color{navy}\bfseries,
 identifierstyle=\color{black},
 sensitive=false,
@@ -77,6 +77,27 @@ commentstyle=\color{mygreen}\ttfamily,
 stringstyle=\color{red}\ttfamily,
 morestring=[b]',
 morestring=[b]"
+}
+
+\lstdefinelanguage{HTML5}{
+        language=html,
+        sensitive=true, 
+        alsoletter={<>=-},
+        otherkeywords={
+        % HTML tags
+        <html>, <head>, <title>, </title>, <meta, />, </head>, <body>,
+        <canvas, \/canvas>, <script>, </script>, </body>, </html>, <!, html>, <style>, </style>, <query-ui>, </query-ui>, <query-text,  </query-text>, <result-media, </result-media>, <video-editor-app>, </video-editor-app>, <video-preview, </video-preview>, <track-editor, </track-editor>, <video-editor>, </video-editor>
+        },  
+        ndkeywords={
+        % General
+        =,
+        % HTML attributes
+        charset=, id=, width=, height=,\/.dictionaries=,\/placeholderText=,.answerSet=,
+        % CSS properties
+        border:, transform:, -moz-transform:, transition-duration:, transition-property:, transition-timing-function:
+        },  
+        morecomment=[s]{<!--}{-->},
+        tag=[s]
 }
  
 \lstset{
