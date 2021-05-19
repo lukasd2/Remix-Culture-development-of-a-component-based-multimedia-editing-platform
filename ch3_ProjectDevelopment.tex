@@ -238,12 +238,12 @@ class VideoEditor extends HTMLElement {
 
 The Shadow DOM API allows to attach two types of Shadow DOM. An open shadow root allows accessing the DOM outside of the HTML element definition while a closed shadow root does not expose the DOM outside of the element. In the latter case the DOM cannot be referenced and accessed outside of its context. In theory, it exists in the flow of the document since it is rendered but its functionality is hidden from the rest of the page. However multiple ways of “hacking through” the limitations of closed shadow root exist\footfullcite{ShadowDomBlog}, therefore the usage of open shadow DOMs is recommended.
 
-Finally, an overview to summarize the concepts introduced can be seen in Figure 4.2.3-1: DOM Tree and Shadow Tree.
+Finally, an overview to summarize the concepts introduced can be seen in Figure \ref{fig:shadowDom}: DOM Tree and Shadow Tree.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/shadowdom.jpg}
-\caption{DOM Tree and Shadow Tree (from: MDN, licensed under CC-BY-SA 2.5)}
+\caption{DOM Tree and Shadow Tree (from Mozilla Developers Network, licensed under CC-BY-SA 2.5)}
 \label{fig:shadowDom}
 \end{figure}
 
@@ -340,7 +340,7 @@ The core front-end structure is composed of the following components:
     \begin{itemize}
         \item Query-Text
         \item Result-Media
-    \end{itemize} begins.
+    \end{itemize}
 \end{itemize}
 
 As seen in the list above, two components’ levels can be distinguished. On the top-level, the “Video-Editor-App” and “Query-Ui” act as wrappers. They can instantiate the components below. They are designed for managing the communication between the client side and the server side through API calls. Therefore, they are more project specific – than the components at one level below – and must be configured in order to request and retrieve application specific data. Similarly, the Query-Ui acts as wrapper enabling communication between Query-Text and Result-Media components.
@@ -375,7 +375,7 @@ In addition, the repository structure is well suited for automation. In particul
 \\
 \begin{lstlisting}[caption={Component entry point example},label={componentEntrypoint}, language=JavaScript]
 import { QueryText } from "./src/QueryText.js";
-window.customElements.define("query-text", QueryText");
+window.customElements.define("query-text", QueryText);
 \end{lstlisting}
 
 The figure above depicts the Query-Text component although its structure is identical for every other component. Again, the objective is to offer a robust way of distributing the application as a whole and a future-proof structure for project evolution. Indeed, the last step of a development iteration in the software world is usually informally referred to by the colloquial expression “going to production”. The practical meaning is about publishing the code to the server and therefore offering it to the final users. At this point the common wish is to have the most optimized code possible. In the web development scenario this can be done with the help of module bundlers. Among prominent features, they allow to resolve dependencies, produce module maps for efficiency, and subsequently minify all the code.
@@ -613,11 +613,31 @@ As exemplified, the above mechanism makes the whole synchronized preview system 
 \section{Application examples}
 \label{sec:appExamples}
 
+The first application example is a prototype made for the “PH-Remix” project. This application uses resources currently protected by copyright which belong to the Mediateca Toscana. At the time of writing, they are mainly documentaries. In this case the resources are short videos extracted from the original works. This is done by Artificial Intelligence algorithms as explained in this dissertation’s introduction. Figure \ref{fig:phRmxOverview} shows the application interface which reflects the components architecture as determined in section \ref{sec:SoftwareArchitecture} \emph{Project idea and Front End Software Architecture}.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/PH-REmixannotatedUI.jpg}
-\caption{PH-Remix}
-\label{fig:phRmx}
+\caption{PH-Remix annotated User Interface}
+\label{fig:phRmxOverview}
 \end{figure}
 
-To be continued.
+Firstly, four components can be seen directly in this example. The search bar or “Query-Text” component is positioned in the top-right corner. Then the middle-right side shows the content library. It can be explored thanks to the thumbnails, that is representative images extracted from each video clip. This is the part managed by the “Result-Media” component. At the bottom there is a track editor with two different types of media tracks. A video track on top and an audio track on the bottom. This part is managed by the “Track-Editor” component and it allows for positioning and arranging the media from the content library. Finally, on the top-left side a preview of the content can be reproduced. The “Video-Preview” component is used for displaying the elements from the editing track, as well as single video clips directly from the content library.
+
+The Figure \ref{fig:phRmxOverview} has also been annotated to show some common actions that were explained earlier in this section. There are three steps necessary to select, insert and preview the content from the library. Step 1 consists in selecting the video clip to be arranged or edited inside the track. This is done by dragging the thumbnail directly into the corresponding media track. In this case a video clip is dragged to the video track. As seen in the interface, the latter proportionally expands the thumbnail length horizontally according to the duration of the video clip. This action can be repeated for every resource in the library. Subsequently, step 2 triggers the preview of the content that was positioned on the track. This happens by pressing the “play” button above the “Track-Editor”. Finally, step 3 allows to preview the sequence of the arranged content. This is the most common scenario for multimedia editing and can be repeated until the desired solution is reached.
+
+Consequently, a more fine-grained look at the interface is shown by the figure below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/phrDetails.jpg}
+\caption{PH-Remix: Single resource entry (on the left) and modal window with details about the resource (on the right)}
+\label{fig:phRmxDetails}
+\end{figure}
+
+This shows an annotated example (from the Italian version) of a single resource entry. The left-hand side displays the element state while the cursor is hovering over it. When users place their cursor on top of a library element, a tooltip with some basic information appears to disambiguate the nature of the resource. In this case the thumbnail seems to depict some sort of a barge floating on water. Indeed, the tooltip describes it as a “Barge” (“Chiatta” in Italian) alongside with the media type (video) and its duration in seconds. Below the thumbnail three elements of the interface allows to perform some actions with the element. These are always visible independently from the item’s state (like the aforementioned positioning of the cursor on top of it). Going from left to right, the media type is also specified within a coloured box, with a different colour for each media type. Then in the centre some more information about the object can be shown as exemplified on the right side of Figure \ref{fig:phRmxDetails}. This is particularly useful for content with cultural value. Indeed, in this case some metadata about the extracted clip and its original source are shown. For instance, the image displays the name of the documentary, its director, year of production, physical location, etc.
+
+The last button allows to directly preview the video clip on the “Video-Preview” component. This is useful to evaluate whether the visual content of the selected items is relevant for the editing action. Then it can be dragged to the track editor, as explained above.
+
+The second application example is a general-purpose application which integrates the resource from the Pexels API. Although at the time of writing the User Interface is almost exactly similar to the one of the “PH-Remix”, its peculiarity is that – thanks to the permissive license of the Pexels platform – it allows for legal remixing of content by everyone.
+As a matter of fact, this consent unconstrained browsing of a rich Open Source catalogue of content. In particular, it consists of thousands of videos and images that can be freely built upon. 
