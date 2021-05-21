@@ -101,7 +101,7 @@ As written in the “Modules” chapter of “Eloquent JavaScript” book:
 This quote resembles the “Tar Pits” metaphor as seen in chapter \ref{ch:ch2_ProjectManagement} \emph{Project Management and interdisciplinary works}, when talking about some of the most common causes leading to failures of software projects from the managerial perspective. Here, the author makes arguments in favour of spending additional time for planning and coding structuring phases. A relevant example might come from the experiences and feelings of many developers who worked or are working with structureless or badly structured code. It may often appear that rewriting code from scratch could be easier than trying to extract it from its original context. 
 By joining these two evocative concepts, “big ball of mud” and “tar pits”, a step forward in the direction of project quality improvement can be made. This would mean recognising and preventing the root causes leading to the negative symptoms described above. A possible solution may come from an appropriate combination of good programming practices and management skills.
 
-In 2015 JavaScript introduced its own standardized module system, called ES Modules\footfullcite{mdnModules} with its own import-export syntax. Since 2018 the JavaScript Modules standard is supported by all the major browsers natively\footfullcite{canIUseEs6Module}. Nowadays, this is standard but initially the web components technology used to have a fourth element, HTML imports\footfullcite{mdnImports}. The latter was intended as a packaging mechanism for including HTML documents inside other HTML documents. However, the standardization attempt failed since the browser vendors decided not to support it.
+In 2015 JavaScript introduced its own standardized module system, called ES Modules\footfullcite{mdnModules} with its own import-export syntax. Since 2018 the JavaScript Modules standard is supported by all the major browsers natively\footfullcite{canIUseEs6Module}. Nowadays, this is standard but initially the Web Components technology used to have a fourth element, HTML imports\footfullcite{mdnImports}. The latter was intended as a packaging mechanism for including HTML documents inside other HTML documents. However, the standardization attempt failed since the browser vendors decided not to support it.
 
 A simple example of ES Modules usage logic can be seen in the next code snippet. Assuming the following file structure as proposed in Code \ref{codeModules}.
 \\
@@ -147,9 +147,9 @@ Finally, it might be argued that modularization is crucial for most good practic
 \subsection{Custom Elements}
 \label{subsec:customElements}
 
-Custom Elements, as defined in the W3C living standard\footfullcite{w3cCustomElems}, can be introduced as: “A set of APIs that allow you to define custom elements and their behaviour, which can then be used as desired in your user interface.”\footfullcite{mdnWC}
+Custom Elements, as defined in the W3C living standard\footfullcite{w3cCustomElems}, can be introduced as: “A set of APIs that allow you to define custom elements and their behaviour, which can then be used as desired in your user interface”\footfullcite{mdnWC}.
 
-From a practical perspective, Custom Elements enable to programmatically extend the base HTMLElement\footfullcite{mdnHTMLElem} (an interface that represents any HTML element) via a Custom Registry API\footfullcite{mdnCustomElemRegistry}. Hence, calling the “CustomElementRegistry” method “define” allows to define a new custom element as demonstrated in the Code \ref{codeCustomElem} Custom Element definition. This turns out to be a powerful combination for enriching the HTML native vocabulary of elements with custom tags containing encapsulated functionality.
+From a practical perspective, Custom Elements enable to programmatically extend the base HTMLElement\footfullcite{mdnHTMLElem} (an interface that represents any HTML element) via a Custom Registry API\footfullcite{mdnCustomElemRegistry}. Hence, calling the “CustomElementRegistry” method “define” allows to define a new custom element as demonstrated in the Code \ref{codeCustomElem} \emph{Custom Element definition}. This turns out to be a powerful combination for enriching the HTML native vocabulary of elements with custom tags containing encapsulated functionality.
 \\
 \begin{lstlisting}[caption={Custom Element definition},label={codeCustomElem}, language=JavaScript]
 class VideoEditor extends HTMLElement {
@@ -162,23 +162,23 @@ class VideoEditor extends HTMLElement {
 window.customElements.define("video-editor", VideoEditor);
 \end{lstlisting}
 
-Custom Elements are created by using the JavaScript class syntax which enables inheritance through the “\emph{prototypal chain}” from HTMLElement interface. In the above example, the code in line 9 registers a Custom Element named “video-editor” (a dash is required by the syntax) whose definition is contained in the class “VideoEditor”, that in turn defines the element’s behaviour.
+Custom Elements are created by using the JavaScript class syntax which enables inheritance through the “\emph{prototypal chain}” from HTMLElement interface. In the above example, the code in line 8 registers a Custom Element named “video-editor” (a dash is required by the syntax) whose definition is contained in the class “VideoEditor”, that in turn defines the element’s behaviour.
 From now on, the “video-editor” Custom Element can be used just as any other native HTML tag.
 \\
 \begin{lstlisting}[caption={Custom Element usage},label={codeCustomElemUse}, language=HTML5, numbers=none]
 <video-editor></video-editor>
 \end{lstlisting}
 
-As mentioned, the class syntax is used to extend the native HTMLElement interface through inheritance. Figure \ref{fig:HTMLInheritance1} HTML Element Interface depicts the native hierarchy of Browser APIs.
+As mentioned, the class syntax is used to extend the native HTMLElement interface through inheritance. Figure \ref{fig:HTMLInheritance1} \emph{HTML Element Interface} depicts the native hierarchy of Browser APIs.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/HTMLElement - Web APIs MDN.png}
-\caption{HTML Element Interface}
+\caption{HTML Element Interface (from Mozilla Developers Network, licensed under CC-BY-SA 2.5)}
 \label{fig:HTMLInheritance1}
 \end{figure}
 
-In this context, the result of registering the custom element could be viewed as in Figure \ref{fig:HTMLInheritance2} DOM Inheritance.
+In this context, the result of registering the custom element could be viewed as in Figure \ref{fig:HTMLInheritance2} \emph{DOM Inheritance}.
 
 \begin{figure}[H]
 \centering
@@ -187,7 +187,7 @@ In this context, the result of registering the custom element could be viewed as
 \label{fig:HTMLInheritance2}
 \end{figure}
 
-In this way a new \emph{"Autonomous Custom Element"} was created. As seen in the examples, these are elements that do not directly inherit from other elements in the HTML vocabulary (apart from the HTMLElement root). As a matter of fact, the API allows to create two types of custom elements. The second type is called \emph{“Customized built-in Element}”, meaning that the custom element extends a built-in HTML element. For example a HTML "p" tag, standing for a paragraph element or the HTML “img” tag standing for image element, and so on.
+In this way a new \emph{"Autonomous Custom Element"} was created. As seen in the examples, these are elements that do not directly inherit from other elements in the HTML vocabulary (apart from the HTMLElement root). As a matter of fact, the API allows to create two types of custom elements. The second type is called \emph{“Customized built-in element}”, meaning that the custom element extends a built-in HTML element. For example a HTML "p" tag, standing for a paragraph element or the HTML “img” tag standing for image element, and so on.
 At the time of writing, the Customized built-in elements have a slightly more limited browser support\footfullcite{canIUseCustomElems}. Furthermore, in this work only Autonomous Custom Elements were used. 
 
 Another important feature of Custom Elements are lifecycle hooks. These hooks – or more precisely, callback functions – can be defined in the class constructor and are automatically executed when elements enter one of the following states\footfullcite{googleWC}:
@@ -208,7 +208,7 @@ Shadow DOM API as referred in the standard, can be defined as:
 
 \begin{displayquote}
 
-“A set of JavaScript APIs for attaching an encapsulated "shadow DOM” tree to an element — which is rendered separately from the main DOM document — and controlling associated functionality.”\footfullcite{whatwgSD}
+“A set of JavaScript APIs for attaching an encapsulated "shadow DOM” tree to an element — which is rendered separately from the main DOM document — and controlling associated functionality”\footfullcite{whatwgSD}.
 
 \end{displayquote}
 
@@ -238,7 +238,7 @@ class VideoEditor extends HTMLElement {
 
 The Shadow DOM API allows to attach two types of Shadow DOM. An open shadow root allows accessing the DOM outside of the HTML element definition while a closed shadow root does not expose the DOM outside of the element. In the latter case the DOM cannot be referenced and accessed outside of its context. In theory, it exists in the flow of the document since it is rendered but its functionality is hidden from the rest of the page. However multiple ways of “hacking through” the limitations of closed shadow root exist\footfullcite{ShadowDomBlog}, therefore the usage of open shadow DOMs is recommended.
 
-Finally, an overview to summarize the concepts introduced can be seen in Figure \ref{fig:shadowDom}: DOM Tree and Shadow Tree.
+Finally, an overview to summarize the concepts introduced can be seen in Figure \ref{fig:shadowDom}: \emph{DOM Tree and Shadow Tree}.
 
 \begin{figure}[H]
 \centering
@@ -261,7 +261,7 @@ Some basic terminology is also explained in the documentation\footfullcite{mdnUs
 
 The HTML Templates technology consists of HTML template\footfullcite{whatwgTemplate} and HTML slot\footfullcite{whatwSlot} elements, specified by the W3C living standards. Among the main characteristics, they allow to produce reusable content that can be defined, referenced by JavaScript, and later instantiated inside the DOM Document. This can be useful for creating content with redundant structure only once.
 
-The Template element “is a mechanism for holding HTML that is not to be rendered immediately when a page is loaded but may be instantiated subsequently during runtime using JavaScript.”\footfullcite{mdnTemplate} This definition suggests that HTML structures of arbitrary complexity can be created and dynamically appended to the DOM Document.
+The Template element “is a mechanism for holding HTML that is not to be rendered immediately when a page is loaded but may be instantiated subsequently during runtime using JavaScript”\footfullcite{mdnTemplate}. This definition suggests that HTML structures of arbitrary complexity can be created and dynamically appended to the DOM Document.
 \\
 \begin{lstlisting}[caption={HTML Template creation},label={htmlTemplate}, language=HTML]
 <template class="image-gallery">
@@ -288,7 +288,7 @@ While templates are a more general purpose mechanism, the slot element was intro
 
 From now on, any valid HTML element can replace the slot placeholders by referring to their name attribute (indeed, they can also be called “named slots”). A paragraph with an image description can be expected on top of the "img" element, also a footer containing the author’s credits and a hyperlink to other similar work can be imagined.
 
-This procedure allows for greater reuse of specific parts of markup, the latter can be instantiated differently depending on the context. Another example comes from the work done for this dissertation project. The Query-Text Web Component – in practice a search bar – can be optionally instantiated with a “slottable” button coming from an external Web Components library with its own Shadow DOM and encapsulated behaviours (figures: \ref{fig:queryTextBase} Query-Text base class and \ref{fig:queryTextSlotted} Query-Text with slotted search button demonstrate these differences).
+This procedure allows for greater reuse of specific parts of markup, the latter can be instantiated differently depending on the context. Another example comes from the work done for this dissertation project. The Query-Text Web Component – in practice a search bar – can be optionally instantiated with a “slottable” button coming from an external Web Components library with its own Shadow DOM and encapsulated behaviours (figures: \ref{fig:queryTextBase} \emph{Query-Text base class} and \ref{fig:queryTextSlotted} \emph{Query-Text with slotted search button} demonstrate these differences).
 
 Overall, templates and slots in conjunction allow for a powerful composition of markup, thus preventing redundancy and shortening the code. 
 
@@ -347,7 +347,7 @@ As seen in the list above, two components’ levels can be distinguished. On the
 This suggests another architectural choice. The rest of the components are isolated and are not concerned with the state of other components. Strictly, the communication with the external world is not allowed. They can be used independently in other application contexts and for different purposes. In other words, they should be operational and testable in isolation.
 However, communication is possible, and necessary to compose the components into a coherent application. Therefore, the following planned communication rules were established. Data can be passed top-down through properties and can be lift-up through Custom Events\footfullcite{mdnCustomEv}. For example, Query-Ui receives a search string from the Query-Text component, sends it through an API to a search engine and returns the results to the media viewer, also known as Result-Media.
 
-This architecture can be seen in Figure \ref{fig:appMockUp} \emph{Application architecture Mock-up}.
+This architecture can be seen in Figure \ref{fig:appMockUp} \emph{Application Mock-up}.
 
 \begin{figure}[H]
 \centering
