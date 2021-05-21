@@ -13,7 +13,7 @@ A second objective comes from the choices made for the technical architecture. T
 
 In the next paragraph, \ref{sec:reuseAndMaintainability} \emph{Reusability and maintainability, through abstractions to a component-based approach}, an analysis of the modern software development is presented together with arguments in favour and against the adoption of a component-based approach.
 
-Finally, at the end of this chapter, two examples of application instances will be made: the first example was developed in the context of the “PH-Remix” project. In this case, as mentioned in the introduction, the content belongs to the “Mediateca Toscana”\footfullcite{mediateca} and the development was guided by the requirements expressed in the regional project grant. The project involves several researchers, and the development is still in progress as the project deadline is set to 2022. Therefore, a front-end component (or set of components) was implemented, in anticipation of the back end architecture, while work on the latter is still in progress at the time of writing.
+Finally, at the end of this chapter, two examples of application instances will be made: the first example was developed in the context of the \emph{PH-Remix} project. In this case, as mentioned in the introduction, the content belongs to the “Mediateca Toscana”\footfullcite{mediateca} and the development was guided by the requirements expressed in the regional project grant. The project involves several researchers, and the development is still in progress as the project deadline is set to 2022. Therefore, a front-end component (or set of components) was implemented, in anticipation of the back end architecture, while work on the latter is still in progress at the time of writing.
 The second application integrates a variety of Open Source materials. It is an example of reusability of the components architecture that can be used for different purposes. The implementation is based on the public Pexels API\footfullcite{pexels} which offers a large number of videos and images. All the content can be used thanks to a permissive license. This solution acts as an aggregator of Open Source licensed materials to create new general purpose productions. It is not connected to any specific target audience. An example could be the discovery of content to be used as commercial advertisement for any kind of industrial product.
 
 \section{Reusability and maintainability, through abstractions to a component-based approach}
@@ -45,7 +45,7 @@ As more and more solutions were introduced into the web development ecosystem, a
 An immediate consequence of using frameworks is the framework-specific way of developing code or components. The developers are required to learn a new framework and dedicate to it in order to gain the benefits that are being offered by those solutions. A flaw of this approach logically follows as the development becomes limited to the specific framework or technology. It seems that more arguments on the downside of using frameworks can be made. The possible common issues involve their lifespan and changes due to new releases that may lead to issues with compatibility between the old and the new versions. Also, the size of the framework codebase, i.e., the functions installed and required by default – often not necessary in every project – can slow down the application performances.
 For some projects this might be a viable solution, as for companies currently developing solutions that might benefit from specific features and differences offered by frameworks or for those who can avail of having an internal expertise to justify the usage of a specific framework.
 
-Many of these new features offered by the above tools are connected to the standardization process itself. It seems that the creation of new solutions that gain popularity within the community stimulate the implementation of these features into web standards. Notably, in this context, W3C recommendations standards\footfullcite{w3c} and JavaScript ECMAScript specification \footfullcite{ecma}.Arguments in favour of this thesis can be made. For example, the standard Selectors API specification\footfullcite{w3cSelectors}, offering “querySelector” “querySelectorAll” interfaces for finding elements inside the DOM tree structure, was inspired by the jQuery selectors helper methods\footfullcite{jQuerySelector}. From the perspective of frameworks or libraries adopters the benefits of adopting the libraries over the native standard – which is faster – are inversely proportional to the number of features that exist in the standard. Although nothing prevents developers from adopting jQuery and similar solutions, their adoption may make less and less sense leading to their natural decline.
+Many of these new features offered by the above tools are connected to the standardization process itself. It seems that the creation of new solutions that gain popularity within the community stimulate the implementation of these features into web standards. Notably, in this context, W3C recommendations standards\footfullcite{w3c} and JavaScript ECMAScript specification \footfullcite{ecma}. Arguments in favour of this thesis can be made. For example, the standard Selectors API specification\footfullcite{w3cSelectors}, offering “querySelector” “querySelectorAll” interfaces for finding elements inside the DOM tree structure, was inspired by the jQuery selectors helper methods\footfullcite{jQuerySelector}. From the perspective of frameworks or libraries adopters the benefits of adopting the libraries over the native standard – which is faster – are inversely proportional to the number of features that exist in the standard. Although nothing prevents developers from adopting jQuery and similar solutions, their adoption may make less and less sense leading to their natural decline.
 
 This prompts the question, if the component approach seems to be a shared direction for developing more complex front-end systems, how to tackle the issues regarding supposedly one of the main features of components, namely the benefit of writing a reusable code while being locked-in into specific technology stacks?
 
@@ -55,7 +55,7 @@ Nevertheless, Web Components are not to be considered a silver bullet for solvin
 
 In this panorama, the Web Components technology seems like an additional asset to the current way of developing front-end projects. Its aim does not involve replacing the actual front-end frameworks, it should rather be considered as one of the possible ways for adopting a component-based approach on the web. 
 
-Returning to the “PH-Remix” case study, the Web Components were adopted as a front-end technology in line with the project architecture. As a matter of fact, the project architecture is based on a microservice model that allows for a degree of flexibility and enables a parallel development of the back-end infrastructure. Also, from the project development point of view, relying on the standard allows for future developers to modify and enrich the code more easily. Consequently, the necessity of learning new frameworks is absent. This suggests that the features that Web Components offer could solve some of these problems. Indeed, the main promise of making a flexible architecture seemed to be easily solved thanks to this front-end technology of choice. In the next paragraph the main standard’s features will be introduced. 
+Returning to the \emph{PH-Remix} case study, the Web Components were adopted as a front-end technology in line with the project architecture. As a matter of fact, the project architecture is based on a microservice model that allows for a degree of flexibility and enables a parallel development of the back-end infrastructure. Also, from the project development point of view, relying on the standard allows for future developers to modify and enrich the code more easily. Consequently, the necessity of learning new frameworks is absent. This suggests that the features that Web Components offer could solve some of these problems. Indeed, the main promise of making a flexible architecture seemed to be easily solved thanks to this front-end technology of choice. In the next paragraph the main standard’s features will be introduced. 
 
 \section{Web Components}
 \label{sec:webComponents}
@@ -87,7 +87,7 @@ As seen up to this point, the overview of state of the art highlights some of th
 \subsection{JavaScript Modules}
 \label{subsec:jSModules}
 
-JavaScript modules (also known as “ES Modules” or “ECMAScript Modules”) are core to the modern web development and can be considered as a prerequisite for the Web Components technology. The definition of a module seems to be quite consistent across the subject literature. A module can be defined as: “[…] a piece of program that specifies which other pieces it relies on and which functionality it provides for other modules to use (its interface).”\footfullcite{EloquentJavascript}.
+JavaScript modules (also known as “ES Modules” or “ECMAScript Modules”) are core to the modern web development and can be considered as a prerequisite for the Web Components technology. The definition of a module seems to be quite consistent across the subject literature. A module can be defined as: “[…] a piece of program that specifies which other pieces it relies on and which functionality it provides for other modules to use (its interface)”\footfullcite{EloquentJavascript}.
 
 From a general point of view, modules act as a glue connecting components or code dependencies and therefore allowing for code splitting and composition. This implies the advantage of writing and maintaining a code structure that can be both understandable and maintainable. This can be particularly beneficial for developers (usually people who did not create the original code). Most likely, without modularization, code would be destined to become exponentially complex to organise in relation to the growth of project features.
 As written in the “Modules” chapter of “Eloquent JavaScript” book:
@@ -318,13 +318,13 @@ Finally, thanks to the scoped styles feature, LitElement automatically attaches 
 \section{Project idea and Front End Software Architecture}
 \label{sec:SoftwareArchitecture}
 
-In this section, a brief discussion about the project idea and its evolution will be introduced followed by a description of the adopted front-end software architecture. As mentioned in this work’s introduction, the application idea was originated from the activities related to the “PH-Remix” interdisciplinary project.
+In this section, a brief discussion about the project idea and its evolution will be introduced followed by a description of the adopted front-end software architecture. As mentioned in this work’s introduction, the application idea was originated from the activities related to the \emph{PH-Remix} interdisciplinary project.
 
-The practical project work of this dissertation is mainly concerned with the development of an in-browser multimedia editing tool. This tool – called “Remix environment” or “Remix platform” in the PH-Remix context – allows for discovery and reuse of multimedia content.
+The practical project work of this dissertation is mainly concerned with the development of an in-browser multimedia editing tool. This tool – called “Remix environment” or “Remix platform” in the \emph{PH-Remix} context – allows for discovery and reuse of multimedia content.
 
-Two phases of development can be extrapolated from a temporal perspective. In the first phase, the application was subject to goals and requirements defined for the “PH-Remix” project. In the second phase, the application was expanded upon to fit a more general scenario. These two phases ought not to be considered as mutually exclusive. On the contrary, thanks to modularity and configurability, the application can accommodate the requirements of the “PH-Remix” project as well as alternative project ideas and implementations. The latter point might be viewed as particularly interesting in the context of this work’s narrative. By demonstrating that multiple applications can be made using the same components it seems that a remix can be applied to the software world. The components can be assembled like LEGO blocks alongside with other components developed from the community, an argument best exemplified in paragraph \ref{sec:appExamples} \emph{Examples of applications}.
+Two phases of development can be extrapolated from a temporal perspective. In the first phase, the application was subject to goals and requirements defined for the \emph{PH-Remix} project. In the second phase, the application was expanded upon to fit a more general scenario. These two phases ought not to be considered as mutually exclusive. On the contrary, thanks to modularity and configurability, the application can accommodate the requirements of the \emph{PH-Remix} project as well as alternative project ideas and implementations. The latter point might be viewed as particularly interesting in the context of this work’s narrative. By demonstrating that multiple applications can be made using the same components it seems that a remix can be applied to the software world. The components can be assembled like LEGO blocks alongside with other components developed from the community, an argument best exemplified in paragraph \ref{sec:appExamples} \emph{Examples of applications}.
 
-The first step of this work involved defining an appropriate software architecture and was done thanks to the collaboration with the “PH-Remix” project members. Consequently, the project was initialized with the subsequent goal of producing an application prototype. The prototype can be seen as an evolutionary prototype\footfullcite{wikiPrototyping} due to the adopted architecture that can be easily refined and expanded.
+The first step of this work involved defining an appropriate software architecture and was done thanks to the collaboration with the \emph{PH-Remix} project members. Consequently, the project was initialized with the subsequent goal of producing an application prototype. The prototype can be seen as an evolutionary prototype\footfullcite{wikiPrototyping} due to the adopted architecture that can be easily refined and expanded.
 
 The front-end architecture was driven by the principles of microservices architecture\footfullcite{redHat}. Namely, the Web Components technology is used as foundation for adopting the separation of concerns design principle\footfullcite{wikiSoc} between application components. The main choices for the adoption of Web Components adoption were made by keeping in mind the benefits of flexibility, maintainability, and scalability. Also, for the sake of efficiency and productivity LitElement was adopted as the Web Component library.
 
@@ -343,11 +343,11 @@ The core front-end structure is composed of the following components:
     \end{itemize}
 \end{itemize}
 
-As seen in the list above, two components’ levels can be distinguished. On the top-level, the “Video-Editor-App” and “Query-Ui” act as wrappers. They can instantiate the components below. They are designed for managing the communication between the client side and the server side through API calls. Therefore, they are more project specific – than the components at one level below – and must be configured in order to request and retrieve application specific data. Similarly, the Query-Ui acts as wrapper enabling communication between Query-Text and Result-Media components.
+As seen in the list above, two components’ levels can be distinguished. On the top-level, the Video-Editor-App and Query-Ui act as wrappers. They can instantiate the components below. They are designed for managing the communication between the client side and the server side through API calls. Therefore, they are more project specific – than the components at one level below – and must be configured in order to request and retrieve application specific data. Similarly, the Query-Ui acts as wrapper enabling communication between Query-Text and Result-Media components.
 This suggests another architectural choice. The rest of the components are isolated and are not concerned with the state of other components. Strictly, the communication with the external world is not allowed. They can be used independently in other application contexts and for different purposes. In other words, they should be operational and testable in isolation.
-However, communication is possible, and necessary to compose the components into a coherent application. Therefore, the following planned communication rules were established. Data can be passed top-down through properties and can be lift-up through Custom Events\footfullcite{mdnCustomEv}. For example, Query-Ui receives a search string from the Query-Text component, sends it through an API to a search engine and returns the results to the media viewer, also known as “Media-Result”.
+However, communication is possible, and necessary to compose the components into a coherent application. Therefore, the following planned communication rules were established. Data can be passed top-down through properties and can be lift-up through Custom Events\footfullcite{mdnCustomEv}. For example, Query-Ui receives a search string from the Query-Text component, sends it through an API to a search engine and returns the results to the media viewer, also known as Result-Media.
 
-This architecture can be seen in Figure \ref{fig:appMockUp} Application architecture Mock-up.
+This architecture can be seen in Figure \ref{fig:appMockUp} \emph{Application architecture Mock-up}.
 
 \begin{figure}[H]
 \centering
@@ -369,7 +369,7 @@ Firstly, components were designed to be independent and therefore, they can resi
 \label{fig:repoStructure}
 \end{figure}
 
-The figure \ref{fig:repoStructure} shows a flat structure of components, although they can be dependent on one other. For example, “Query-Ui” can depend upon “Query-Text” specifying the latter as a project dependency inside its “package.json”. By adopting a monorepo structure the dependencies are always at hand, ready to be modified and at the same time they maintain their own commit history. Lerna is a tool that further optimizes this workflow. Among the most prominent features, it allows for dependency hoisting, versioning with the possibility of publishing components into registries like npm, and many others.
+The figure \ref{fig:repoStructure} shows a flat structure of components, although they can be dependent on one other. For example, Query-Ui can depend upon Query-Text specifying the latter as a project dependency inside its “package.json”. By adopting a monorepo structure the dependencies are always at hand, ready to be modified and at the same time they maintain their own commit history. Lerna is a tool that further optimizes this workflow. Among the most prominent features, it allows for dependency hoisting, versioning with the possibility of publishing components into registries like npm, and many others.
 
 In addition, the repository structure is well suited for automation. In particular, the “index.js” file provides an entry point for every component. In this context JavaScript module bundlers can be easily implemented.
 \\
@@ -410,7 +410,7 @@ The next paragraphs introduce and briefly explain each component. The goal is to
 
 Searching and displaying the retrieved results can be considered pivotal for applications whose success can be largely measured in terms of the quantity and the quality of offered resources. Consequently, the main benefits that come from a good implementation might involve improved content discoverability and better user engagement.
 
-These objectives were pursued by developing three components. First, a component called Query-Ui\footfullcite{rmxQueryUI} will be introduced. It is a connector between the client and server side and can be seen as a top level wrapper governing the functionalities below, of its children’s components. Indeed, it instantiates two components: “Query-Text”, which manages the search and autocomplete feature while “Result-Media” is concerned with the rendering of results found.
+These objectives were pursued by developing three components. First, a component called Query-Ui\footfullcite{rmxQueryUI} will be introduced. It is a connector between the client and server side and can be seen as a top level wrapper governing the functionalities below, of its children’s components. Indeed, it instantiates two components: Query-Text, which manages the search and autocomplete feature while Result-Media is concerned with the rendering of results found.
 Notably, Query-Ui manages all the logic and information flow coming from the instantiated components. It also sends and receives data from external APIs, thereby passing data “downwards”, to the wrapped components.
 
 An example of this relationship can be seen in the Code below.
@@ -479,20 +479,20 @@ The Figure \ref{fig:queryTextBase} shows the bare minimum component. Secondly, t
 \subsection{Results viewer component}
 \label{subsec:resultsComponents}
 
-As the name suggests, the “Media-Result” component renders some results onto the interface. For this project, search results are displayed as a gallery of thumbnails allowing for content selection and discovery. Importantly, the figures – or cards, as they are commonly called across UI libraries – can be dragged away from the component. This feature enables many possibilities as explored more in detail when introducing the track editor component. Specifically, with the help of the native Drag and Drop API\footfullcite{mdnDnD} some information about the object can be transferred through the drop event.
+As the name suggests, the Result-Media component renders some results onto the interface. For this project, search results are displayed as a gallery of thumbnails allowing for content selection and discovery. Importantly, the figures – or cards, as they are commonly called across UI libraries – can be dragged away from the component. This feature enables many possibilities as explored more in detail when introducing the Track-Editor component. Specifically, with the help of the native Drag and Drop API\footfullcite{mdnDnD} some information about the object can be transferred through the drop event.
 
-The adopted preview style can be seen in the Figure \ref{fig:mediaResults} Media-Result example.
+The adopted preview style can be seen in the Figure \ref{fig:mediaResults} \emph{Result-Media example}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/ResultsMedia.png}
-\caption{Media-Result example}
+\caption{Result-Media example}
 \label{fig:mediaResults}
 \end{figure}
 
 As mentioned before, these figures can be dragged and dropped to any valid drop target. Indeed, when users start dragging an object from the gallery,an event is triggered. This event is connected to the creation of a DataTransfer object\footfullcite{mdnDataTransf} containing all the necessary information to be transferred. For example, dragging a thumbnail that represents a video implies the insertion of the video duration onto the transferred data object. The latter can be read once the dragged item is dropped.
 
-Additional features can also be optionally enabled. Since image thumbnails might not always be self-explanatory, the tooltip feature is also implemented in this project. Users can find further details about the resource by “hovering” on top of each media result. Continuing with the video result example, a tooltip may contain information about its title, duration, etc. Lastly, users might also be interested in reproducing the media directly inside the application. This is done by pressing the “play” button in combination with the “Video-Player” component which will be discussed in \ref{subsec:mediaPreview} Media Preview component.
+Additional features can also be optionally enabled. Since image thumbnails might not always be self-explanatory, the tooltip feature is also implemented in this project. Users can find further details about the resource by “hovering” on top of each media result. Continuing with the video result example, a tooltip may contain information about its title, duration, etc. Lastly, users might also be interested in reproducing the media directly inside the application. This is done by pressing the “play” button in combination with the Video-Player component which will be discussed in \ref{subsec:mediaPreview} \emph{Media Preview component}.
 
 \section{Multimedia Editor}
 \label{sec:multimediaEditor}
@@ -527,12 +527,12 @@ A frequent scenario involves users that compose multimedia resources inside the 
 
 “Track-Editor”\footfullcite{rmxTrackEdtior} is the most complex component created for this project application. It offers the core feature of arranging media content similarly to the way it is implemented by some of the alternative software for video-editing. Its peculiarity is that it offers this functionality directly from the browser level.
 
-In detail, Track Editor can be composed of multiple tracks. Depending on the configuration, an arbitrary number of tracks can be used. Tracks refer to specific media types, for example: an audio, video, and image track. Every track has a temporal dimension which allows to perform some basic operations that are key for any editing tool. Indeed, a temporal marker is also implemented for keeping track of the currently reproduced media. This can be seen in the example below:
+In detail, Track-Editor can be composed of multiple tracks. Depending on the configuration, an arbitrary number of tracks can be used. Tracks refer to specific media types, for example: an audio, video, and image track. Every track has a temporal dimension which allows to perform some basic operations that are key for any editing tool. Indeed, a temporal marker is also implemented for keeping track of the currently reproduced media. This can be seen in the example below:
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/TrackEditor.png}
-\caption{Track Editor example}
+\caption{Track-Editor example}
 \label{fig:trackEditor}
 \end{figure}
 
@@ -550,11 +550,11 @@ Currently, the Track-Editor also allows to:
 
 Some interesting points can be made from this list. First of all, operating with a content length of a few seconds is different from content whose duration might be in order of several minutes. This potential problem is mitigated by the zooming functionality. Also, some basic form of error prevention has been made to preserve the preview functionality. This is done by generating an informative message on the UI stating that a specific media type cannot be put inside a track.
 
-Finally, the ability of playing, stopping, and resetting the current tracks state is synchronized with the temporal marker – namely, the blue line in \ref{fig:trackEditor} Track Editor example.
+Finally, the ability of playing, stopping, and resetting the current tracks state is synchronized with the temporal marker – namely, the blue line in \ref{fig:trackEditor} \emph{Track-Editor example}.
 
 From the implementation perspective, when users press play, a Custom Event is dispatched. This event can be captured thanks to its bubble property, as showed in the Code below. 
 \\
-\begin{lstlisting}[caption={Track Editor event dispatch},label={customEvent}, language=JavaScript]
+\begin{lstlisting}[caption={Track-Editor event dispatch},label={customEvent}, language=JavaScript]
 function dispatchEventForPreview() {
     const event = new CustomEvent('track-elements', {
       detail: {
@@ -574,9 +574,7 @@ This event transfers the current state of the Track-Editor. At a later stage thi
 
 The final part of this application is the media preview. The component that manages the preview is called “Video-Preview”\footfullcite{rmxVideoPreview}. As discussed in the previous paragraph, its main purpose consists in reproducing a synchronised preview of the media from the Track-Editor. Generally speaking, it can preview any number of media content, starting from a single preview to a large number of media with different media types.
 
-An interesting implementation choice can be derived from the synchronization feature. It might be argued that the component has intuitively some sort of an internal clock or at least some way of keeping track of the elapsed time. As a matter of fact, in this case this is not entirely true. Contrary to the Track-Editor, which implements an internal timer that guides the component state. It turns out that “Video-Preview” does not necessarily need one. And yet it works. Walking through an example may effectively demonstrate how things work internally. Before jumping into the example, a possible way of instantiating the component is presented in the figure below.
-
-An interesting implementation choice can be derived from the synchronization feature. It might be argued that the component has intuitively some sort of an internal clock or at least some way of keeping track of the elapsed time. As a matter of fact, in this case this is not entirely true. Contrary to the Track-Editor, which implements an internal timer that guides the component state. It turns out that “Video-Preview” does not necessarily need one. And yet it works. Walking through an example may effectively demonstrate how things work internally. Before jumping into the example, a possible way of instantiating the component is presented in the Code below.
+An interesting implementation choice can be derived from the synchronization feature. It might be argued that the component has intuitively some sort of an internal clock or at least some way of keeping track of the elapsed time. As a matter of fact, in this case this is not entirely true. Contrary to the Track-Editor, which implements an internal timer that guides the component state. It turns out that Video-Preview does not necessarily need one. And yet it works. Walking through an example may effectively demonstrate how things work internally. Before jumping into the example, a possible way of instantiating the component is presented in the Code below.
 \\
 \begin{lstlisting}[caption={Video-Preview component instantiation},label={videoPreview}, language=HTML5]
 <video-preview
@@ -591,17 +589,17 @@ An interesting implementation choice can be derived from the synchronization fea
 
 In particular, the “resources” property contains all the media items to be previewed. Hence, a video would be inserted into a HTML video source tag, an image would reside within an HTML img source and so on.
 
-Assuming the scenario of Track-Editor interaction with Video Preview. After putting an arbitrary number of media elements inside the tracks, the user presses the “play” button. Subsequently the following steps occur:
+Assuming the scenario of Track-Editor interaction with the Video-Preview component, after putting an arbitrary number of media elements inside the tracks, the user presses the “play” button. Subsequently the following steps occur:
 
 \begin{enumerate}
   \item All the media references are sent through a Custom Event.
   \item The Event is captured by the top level Video-Editor-App component. It requests all the items using API calls.
   \item The responses arrive asynchronously and are sent to the Video-Preview component for preview.
-  \item Track Editor starts its internal timer and checks if at the time 00:00:00 (in the minutes/seconds/milliseconds format) any media element has been positioned into the track. If yes, the next step is executed, otherwise the timer runs until it encounters an element on the track.
-  \item Track Editor emits the “executeSegmentsPreview” event containing one or more references to media elements that must be previewed.
+  \item Track-Editor starts its internal timer and checks if at the time 00:00:00 (in the minutes/seconds/milliseconds format) any media element has been positioned into the track. If yes, the next step is executed, otherwise the timer runs until it encounters an element on the track.
+  \item Track-Editor emits the “executeSegmentsPreview” event containing one or more references to media elements that must be previewed.
   \item The Event is captured by the top level Video-Editor-App component and passed immediately to the Video Preview component.
   \item Video Preview selects the right resource(s) – from the resource list received in the step 3 – and starts the preview.
-  \item Once the media element duration ends, the Track Editor sends a “terminateSegmentsPreview” event.
+  \item Once the media element duration ends, the Track-Editor sends a “terminateSegmentsPreview” event.
   \item The Event is captured by the top level Video-Editor-App component and passed immediately to the Video Preview component.
   \item Video Preview selects the right resource(s) – from the resource list received in the step 3 – and stops the preview.
 \end{enumerate}
@@ -613,12 +611,12 @@ As exemplified, the above mechanism makes the whole synchronized preview system 
 \section{Application examples}
 \label{sec:appExamples}
 
-The main application example is a prototype made for the PH-Remix project. This application uses resources currently protected by copyright which belong to the Mediateca Toscana. At the time of writing, they are mainly documentaries. In this case the resources are short videos extracted from the original works. This is done by Artificial Intelligence algorithms as explained in this dissertation’s introduction. Figure \ref{fig:phRmxOverview} shows the application interface which reflects the components architecture as determined in section \ref{sec:SoftwareArchitecture} \emph{Project idea and Front End Software Architecture}.
+The main application example is a prototype made for the \emph{PH-Remix} project. This application uses resources currently protected by copyright which belong to the Mediateca Toscana. At the time of writing, they are mainly documentaries. In this case the resources are short videos extracted from the original works. This is done by Artificial Intelligence algorithms as explained in this dissertation’s introduction. Figure \ref{fig:phRmxOverview} shows the application interface which reflects the components architecture as determined in section \ref{sec:SoftwareArchitecture} \emph{Project idea and Front End Software Architecture}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/PH-REmixannotatedUI.jpg}
-\caption{PH-Remix annotated User Interface}
+\caption{\emph{PH-Remix} annotated User Interface}
 \label{fig:phRmxOverview}
 \end{figure}
 
@@ -631,7 +629,7 @@ Consequently, a more fine-grained look at the interface is shown by the figure b
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{images/phrDetails.jpg}
-\caption{PH-Remix: Single resource entry (on the left) and modal window with details about the resource (on the right)}
+\caption{\emph{PH-Remix}: Single resource entry (on the left) and modal window with details about the resource (on the right)}
 \label{fig:phRmxDetails}
 \end{figure}
 
@@ -639,5 +637,5 @@ This shows an annotated example (from the Italian version) of a single resource 
 
 The last button allows to directly preview the video clip inside the Video-Preview component. This is useful to evaluate whether the visual content of the selected items is relevant for the editing action. Then it can be dragged to the track editor, as explained above.
 
-On the other hand, the second example is a general-purpose application which integrates the resource from the Pexels API. Although at the time of writing the User Interface is almost exactly similar to the one of the PH-Remix, its peculiarity is that – thanks to the permissive license of the Pexels platform – it allows for legal remixing of content by everyone.
-As a matter of fact, this consents unconstrained browsing of a rich Open Source catalogue of content. In particular, it consists of thousands of videos and images that can be freely built upon. Apart from the nature of the content itself, some features that are present in the PH-Remix example are not present in the general-purpose application and vice versa. For instance the ability of viewing object metadata is relevant to cultural heritage objects, but it may not be necessary for simple pictures made for fun.  
+On the other hand, the second example is a general-purpose application which integrates the resource from the Pexels API. Although at the time of writing the User Interface is almost exactly similar to the one of the \emph{PH-Remix}, its peculiarity is that – thanks to the permissive license of the Pexels platform – it allows for legal remixing of content by everyone.
+As a matter of fact, this consents unconstrained browsing of a rich Open Source catalogue of content. In particular, it consists of thousands of videos and images that can be freely built upon. Apart from the nature of the content itself, some features that are present in the \emph{PH-Remix} example are not present in the general-purpose application and vice versa. For instance the ability of viewing object metadata is relevant to cultural heritage objects, but it may not be necessary for simple pictures made for fun.  
