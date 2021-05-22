@@ -116,9 +116,9 @@ In this example one of the functions defined in the file “utils.js” is used 
 \\
 \begin{lstlisting}[caption={Import, export directives},label={codeImportExport}, language=JavaScript]
 // main.js
-import { create } from "./modules/utils.js";
+import { createAndAppendParagraph } from "./modules/utils.js";
 
-const element = create (document.body, "article-segment");
+const element = createAndAppendParagraph(document.body, "article-segment");
 
 // utils.js
 
@@ -134,10 +134,10 @@ function createAndAppendParagraph(parent, className) {
     parent.appendChild(paragraphElem);
 }
 
-export { MEDIA_TYPES, create }
+export { MEDIA_TYPES, createAndAppendParagraph }
 \end{lstlisting}
 
-The code above exports two types of variables, a constant “MEDIA\_TYPES” and a function “createAndAppendParagraph”. In this way any JavaScript construct can be exported if it is not a top-level item, that is: an item not nested inside objects or functions etc. The main script imports one of the exported functionalities, namely the “create” function. The latter is called within “main.js” and appends a DOM HTML paragraph to the parent (passed through the “parent” parameter”) with the class as specified in the “className” parameter. By analogy, the constant “MEDIA\_TYPES” could be imported by an indefinite number of JavaScript scripts. For example, since JavaScript does not implement an “enum” data type it could be used for the purpose of simulating immutable data through code.
+The code above exports two types of variables, a constant “MEDIA\_TYPES” and a function “createAndAppendParagraph”. In this way any JavaScript construct can be exported if it is not a top-level item, that is: an item not nested inside objects or functions etc. The main script imports one of the exported functionalities, namely the “createAndAppendParagraph” function. The latter is called within “main.js” and appends a DOM HTML paragraph to the parent (passed through the “parent” parameter”) with the class as specified in the “className” parameter. By analogy, the constant “MEDIA\_TYPES” could be imported by an indefinite number of JavaScript scripts. For example, since JavaScript does not implement an “enum” data type it could be used for the purpose of simulating immutable data through code.
 In this perspective, modules are crucial for Web Components. Starting from how custom elements are instantiated into an HTML document via the import directive to the inner dependencies between components. Modules allow to avoid conflicts in the global JavaScript namespace, where components could interfere with one another (a concept that will be further extended in section \ref{subsec:shadowDOM} \emph{Shadow DOM}).
 
 By expanding upon the idea of reusability, Web Components should enable developers to pick and use components created from anyone and to incorporate them into their own projects. Indeed, components in general should work like LEGO blocks. Since a Web Component may rely on other Components to work, the modules system provides the mechanism to connect or “glue” everything together in an organised manner. This resolves the “big ball of mud” software problem.
